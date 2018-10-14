@@ -13,18 +13,18 @@ DROP TABLE IF EXISTS 'product_photo';
 DROP TABLE IF EXISTS 'uses';
 
 CREATE TABLE 'advertisement' (
-    'aid' INTEGER,
+    'adid' INTEGER(8),
     'adimage' VARCHAR(500), -- image LINK
     'adlink' VARCHAR(500), -- if click on add, should link to
     'adtag' VARCHAR(20),
-    PRIMARY KEY (aid)
+    PRIMARY KEY (adid)
 );
 
 CREATE TABLE 'post_likes' (
     'likes_uid' VARCHAR(30),
-    'likes_postid' INTEGER,
+    'likes_postid' INTEGER(8),
     'uid' VARCHAR(30) NOT NULL,
-    'postid' INTEGER NOT NULL,
+    'postid' INTEGER(8) NOT NULL,
     PRIMARY KEY (likes_uid, likes_postid),
     FOREIGN KEY (uid) REFERENCES user (uid)
         ON DELETE CASCADE,
@@ -41,7 +41,7 @@ CREATE TABLE 'user' (
     'first_name' VARCHAR(20) NOT NULL,
     'last_name' VARCHAR(20) NOT NULL,
     'password' VARCHAR(30) NOT NULL,
-    'birthdate' DATE CHECK (birthdate < now()::date),
+    'birthdate' DATE,
     PRIMARY KEY (uid)
 );
 
@@ -50,7 +50,7 @@ CREATE TABLE 'seller' (
     'first_name' VARCHAR(20) NOT NULL,
     'last_name' VARCHAR(20) NOT NULL,
     'password' VARCHAR(30) NOT NULL,
-    'birthdate' DATE CHECK (birthdate < now()::date),
+    'birthdate' DATE,
     PRIMARY KEY (uid),
     FOREIGN KEY (uid) REFERENCES user (uid)
 );
@@ -60,17 +60,17 @@ CREATE TABLE 'buyer' (
     'first_name' VARCHAR(20) NOT NULL,
     'last_name' VARCHAR(20) NOT NULL,
     'password' VARCHAR(30) NOT NULL,
-    'birthdate' DATE CHECK (birthdate < now()::date),
+    'birthdate' DATE,
     PRIMARY KEY (uid),
     FOREIGN KEY (uid) REFERENCES user (uid)
 );
 
 CREATE TABLE 'transaction_has' (
-    'transactionid' INTEGER,
+    'transactionid' INTEGER(8),
     'card_exp' CHAR(4) NOT NULL,
     'card_no' CHAR(12) NOT NULL,
     'card_name' VARCHAR(20) NOT NULL,
-    'postid' INTEGER NOT NULL,
+    'postid' INTEGER(4) NOT NULL,
     'uid' VARCHAR(30) NOT NULL,
     PRIMARY KEY (transactionid),
     FOREIGN KEY (postid) REFERENCES product_posts (postid)
@@ -80,8 +80,8 @@ CREATE TABLE 'transaction_has' (
 );
 
 CREATE TABLE 'comment' (
-    'commentid' INTEGER,
-    'postid' INTEGER,
+    'commentid' INTEGER(8),
+    'postid' INTEGER(8),
     'uid' VARCHAR(30),
     'commenttxt' VARCHAR(500),
     'commentdate' DATE,
@@ -94,7 +94,7 @@ CREATE TABLE 'comment' (
 )
 
 CREATE TABLE 'product_posts' (
-    'postid' INTEGER,
+    'postid' INTEGER(8),
     'uid' VARCHAR(30),
     'product_description' VARCHAR(1000),
     'product_name' VARCHAR(30),
@@ -107,8 +107,8 @@ CREATE TABLE 'product_posts' (
 );
 
 CREATE TABLE 'product_photo' (
-    'photoid' INTEGER,
-    'postid' INTEGER,
+    'photoid' INTEGER(4),
+    'postid' INTEGER(8),
     'photo_link' VARCHAR(500), -- link to image
     PRIMARY KEY (photoid, postid),
     FOREIGN KEY (postid) REFERENCES product_posts (postid)
@@ -116,11 +116,11 @@ CREATE TABLE 'product_photo' (
 );
 
 CREATE TABLE 'uses' (
-    'postid' INTEGER,
+    'postid' INTEGER(8),
     'uid' VARCHAR(30),
-    'aid' INTEGER,
-    PRIMARY KEY (postid, uid, aid),
+    'adid' INTEGER(8),
+    PRIMARY KEY (postid, uid, adid),
     FOREIGN KEY (postid) REFERENCES product_posts (postid),
     FOREIGN KEY (uid) REFERENCES user (uid),
-    FOREIGN KEY (aid) REFERENCES advertisement (aid)
+    FOREIGN KEY (adid) REFERENCES advertisement (adid)
 );
