@@ -27,11 +27,9 @@ CREATE TABLE 'post_likes' (
     'postid' INTEGER NOT NULL,
     PRIMARY KEY (likes_uid, likes_postid),
     FOREIGN KEY (uid) REFERENCES user (uid)
-        ON DELETE CASCADE
-        ON UPDATE CASCADE,
+        ON DELETE CASCADE,
     FOREIGN KEY (postid) REFERENCES product_posts (postid)
         ON DELETE CASCADE
-        ON UPDATE CASCADE
 )
 
 -- Might want to delete post_likes and instead use
@@ -76,11 +74,9 @@ CREATE TABLE 'transaction_has' (
     'uid' VARCHAR(30) NOT NULL,
     PRIMARY KEY (transactionid),
     FOREIGN KEY (postid) REFERENCES product_posts (postid)
-        ON DELETE NO ACTION
-        ON UPDATE CASCADE, -- can't delete post if transaction
+        ON DELETE NO ACTION, -- can't delete post if transaction
     FOREIGN KEY (uid) REFERENCES buyer (uid)
         ON DELETE NO ACTION -- can't delete user if transaction
-        ON UPDATE CASCADE
 );
 
 CREATE TABLE 'comment' (
@@ -92,11 +88,9 @@ CREATE TABLE 'comment' (
     'edited?' BOOLEAN,
     PRIMARY KEY (commentid, postid, uid),
     FOREIGN KEY (postid) REFERENCES product_posts (postid)
-        ON DELETE CASCADE
-        ON UPDATE CASCADE,
+        ON DELETE CASCADE,
     FOREIGN KEY (uid) REFERENCES user (uid)
         ON DELETE CASCADE
-        ON UPDATE CASCADE
 )
 
 CREATE TABLE 'product_posts' (
@@ -110,7 +104,6 @@ CREATE TABLE 'product_posts' (
     PRIMARY KEY (postid),
     FOREIGN KEY (uid) REFERENCES user (uid)
         ON DELETE CASCADE
-        ON UPDATE CASCADE
 );
 
 CREATE TABLE 'product_photo' (
@@ -120,7 +113,6 @@ CREATE TABLE 'product_photo' (
     PRIMARY KEY (photoid, postid),
     FOREIGN KEY (postid) REFERENCES product_posts (postid)
             ON DELETE CASCADE
-            ON UPDATE CASCADE
 );
 
 CREATE TABLE 'uses' (
