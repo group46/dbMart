@@ -58,3 +58,15 @@ CREATE TABLE 'buyer' (
     PRIMARY KEY (uid),
     FOREIGN KEY (uid) REFERENCES user (uid)
 );
+
+CREATE TABLE 'transaction_has' (
+    'transactionid' INTEGER,
+    'card_exp' CHAR(4),
+    'card_no' CHAR(12),
+    'card_name' VARCHAR(20),
+    'postid' INTEGER,
+    'uid' VARCHAR(30),
+    PRIMARY KEY (transactionid),
+    FOREIGN KEY (postid) REFERENCES product_posts (postid),
+    FOREIGN KEY (uid) REFERENCES buyer (uid)
+);
