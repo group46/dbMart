@@ -15,16 +15,14 @@ Our platform will use a database to store users’ account details, previous tra
 - Which product would User be interested in? (recommendation)
 - Show items of certain type that is within a certain price range
 
-### What benefit does the database provide to the application?
-### What functionality will the database provide?
+### What benefit does the database provide to the application? / What functionality will the database provide?
 
 With user accounts being created, transactions being recorded as well as users’ posts and comments being submitted concurrently, the platforms has many critical sections that are subject to dataraces. This issue caused by concurrent access to data can be resolved by a database management system.
 Users of a platform cannot see the recommendations issued to another user, and recommendations will be unique to each user based on their activity patterns. A database management system can help prevent and enforce rules surrounding what user sees what…
 Users can manually query for items on sale. A relational database allows users to write intuitive queries.
 
 
-### What platform will the final project be on?
-### What is your application technology stack?
+### What platform will the final project be on? / What is your application technology stack?
 
 For front end we will be using React.js. For backend we will be using Node.js Express web application framework. Our DBMS will be MySQL. We chose React and Node due to their wide range of online documentation/tutorials. Additionally, by using Javascript for both backend and frontend, we hoped that having one language to learn would help with speeding up development. We will host the website locally and we intend to use github for version control.
 
