@@ -26,6 +26,35 @@ CREATE TABLE 'post_likes' (
     'uid' VARCHAR(30),
     'postid' INTEGER,
     PRIMARY KEY (likes_uid, likes_postid),
-    FOREIGN KEY (uid) REFERENCES user,
-    FOREIGN KEY (postid) REFERENCES product_posts
+    FOREIGN KEY (uid) REFERENCES user (uid),
+    FOREIGN KEY (postid) REFERENCES product_posts (postid)
 )
+
+CREATE TABLE 'user' (
+    'uid' VARCHAR(30) NOT NULL,
+    'first_name' VARCHAR(20) NOT NULL,
+    'last_name' VARCHAR(20) NOT NULL,
+    'password' VARCHAR(30) NOT NULL,
+    'birthdate' DATE CHECK (birthdate < now()::date),
+    PRIMARY KEY (uid)
+);
+
+CREATE TABLE 'seller' (
+    'uid' VARCHAR(30) NOT NULL,
+    'first_name' VARCHAR(20) NOT NULL,
+    'last_name' VARCHAR(20) NOT NULL,
+    'password' VARCHAR(30) NOT NULL,
+    'birthdate' DATE CHECK (birthdate < now()::date),
+    PRIMARY KEY (uid),
+    FOREIGN KEY (uid) REFERENCES user (uid)
+);
+
+CREATE TABLE 'buyer' (
+    'uid' VARCHAR(30) NOT NULL,
+    'first_name' VARCHAR(20) NOT NULL,
+    'last_name' VARCHAR(20) NOT NULL,
+    'password' VARCHAR(30) NOT NULL,
+    'birthdate' DATE CHECK (birthdate < now()::date),
+    PRIMARY KEY (uid),
+    FOREIGN KEY (uid) REFERENCES user (uid)
+);
