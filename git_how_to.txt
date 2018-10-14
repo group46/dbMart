@@ -1,10 +1,19 @@
 pull requests
     - send and merge
 
-- clone repo using:
-    cd into whatever local directory you want these files to be
-    git clone https://github.com/cpsc304-group46/cpsc304db.git
-    git checkout -b branchname
-        - before making any changes make a branch!
-        - branchname could be featurename, etc...
-    (then atom . or subl . to open in your text editor and edit!)
+    - clone repo using:
+        cd into whatever local directory you want these files to be
+        git clone https://github.com/cpsc304-group46/cpsc304db.git
+        git checkout -b branchname
+            - before making any changes make a branch!
+            - branchname could be featurename, etc...
+        (then atom . or subl . to open in your text editor and edit!)
+
+        - once change is made:
+        git add .
+            - adding changes to your branch
+        git commit -m "edit messages/short description of what was done"
+        git checkout master
+            - switch branch to master
+        git push origin branchname
+            - pushing changes in branchname to master branch
