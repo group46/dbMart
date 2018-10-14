@@ -23,12 +23,20 @@ CREATE TABLE 'advertisement' (
 CREATE TABLE 'post_likes' (
     'likes_uid' VARCHAR(30),
     'likes_postid' INTEGER,
-    'uid' VARCHAR(30),
-    'postid' INTEGER,
+    'uid' VARCHAR(30) NOT NULL,
+    'postid' INTEGER NOT NULL,
     PRIMARY KEY (likes_uid, likes_postid),
-    FOREIGN KEY (uid) REFERENCES user (uid),
+    FOREIGN KEY (uid) REFERENCES user (uid)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
     FOREIGN KEY (postid) REFERENCES product_posts (postid)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
 )
+
+-- Might want to delete post_likes and instead use
+-- aggregation 'product_posts' likes 'user' --> used_by 'advertisement'
+-- consult TA about this...
 
 CREATE TABLE 'user' (
     'uid' VARCHAR(30) NOT NULL,
@@ -61,14 +69,18 @@ CREATE TABLE 'buyer' (
 
 CREATE TABLE 'transaction_has' (
     'transactionid' INTEGER,
-    'card_exp' CHAR(4),
-    'card_no' CHAR(12),
-    'card_name' VARCHAR(20),
-    'postid' INTEGER,
-    'uid' VARCHAR(30),
+    'card_exp' CHAR(4) NOT NULL,
+    'card_no' CHAR(12) NOT NULL,
+    'card_name' VARCHAR(20) NOT NULL,
+    'postid' INTEGER NOT NULL,
+    'uid' VARCHAR(30) NOT NULL,
     PRIMARY KEY (transactionid),
-    FOREIGN KEY (postid) REFERENCES product_posts (postid),
+    FOREIGN KEY (postid) REFERENCES product_posts (postid)
+        ON DELETE NO ACTION
+        ON UPDATE CASCADE, -- can't delete post if transaction
     FOREIGN KEY (uid) REFERENCES buyer (uid)
+        ON DELETE NO ACTION -- can't delete user if transaction
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE 'comment' (
@@ -79,8 +91,12 @@ CREATE TABLE 'comment' (
     'commentdate' DATE,
     'edited?' BOOLEAN,
     PRIMARY KEY (commentid, postid, uid),
-    FOREIGN KEY (postid) REFERENCES product_posts (postid),
+    FOREIGN KEY (postid) REFERENCES product_posts (postid)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
     FOREIGN KEY (uid) REFERENCES user (uid)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
 )
 
 CREATE TABLE 'product_posts' (
@@ -93,6 +109,8 @@ CREATE TABLE 'product_posts' (
     'tag' VARCHAR(20),
     PRIMARY KEY (postid),
     FOREIGN KEY (uid) REFERENCES user (uid)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE 'product_photo' (
