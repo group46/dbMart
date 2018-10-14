@@ -1,6 +1,8 @@
 CREATE DATABASE IF NOT EXISTS 'Craigsbook';
 USE 'Craigsbook';
 
+-- test test
+
 DROP TABLE IF EXISTS 'advertisement';
 DROP TABLE IF EXISTS 'post_likes';
 DROP TABLE IF EXISTS 'user';
