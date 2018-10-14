@@ -13,5 +13,9 @@ DROP TABLE IF EXISTS 'Product_Photo';
 DROP TABLE IF EXISTS 'Uses';
 
 CREATE TABLE 'Advertisement' (
-    'adID'    
-)
+    'aid' INTEGER,
+    'adimage' VARCHAR(500), -- image LINK
+    'adlink' VARCHAR(500), -- if click on add, should link to
+    'adtag' VARCHAR(20),
+    PRIMARY KEY (aid)
+);
