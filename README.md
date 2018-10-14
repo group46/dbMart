@@ -7,7 +7,7 @@ The domain of our application is a social media platform that focuses on allowin
 
 ### What aspects of the domain are modeled by the database?
 
-	Our platform will use a database to store users’ account details, previous transactions, ongoing sales, users’ posts and comments as well as post and transaction tags. Our platforms recommendation feature will query the database extensively to provide users with recommendations. Users can query the database for other users’ accounts, posts and comments as well as ongoing sales and past transactions.
+Our platform will use a database to store users’ account details, previous transactions, ongoing sales, users’ posts and comments as well as post and transaction tags. Our platforms recommendation feature will query the database extensively to provide users with recommendations. Users can query the database for other users’ accounts, posts and comments as well as ongoing sales and past transactions.
 
 ### Query
 - Certain User’s ongoing sales / past transactions
@@ -18,9 +18,9 @@ The domain of our application is a social media platform that focuses on allowin
 ### What benefit does the database provide to the application?
 ### What functionality will the database provide?
 
-	With user accounts being created, transactions being recorded as well as users’ posts and comments being submitted concurrently, the platforms has many critical sections that are subject to dataraces. This issue caused by concurrent access to data can be resolved by a database management system.
-	Users of a platform cannot see the recommendations issued to another user, and recommendations will be unique to each user based on their activity patterns. A database management system can help prevent and enforce rules surrounding what user sees what…
-	Users can manually query for items on sale. A relational database allows users to write intuitive queries.
+With user accounts being created, transactions being recorded as well as users’ posts and comments being submitted concurrently, the platforms has many critical sections that are subject to dataraces. This issue caused by concurrent access to data can be resolved by a database management system.
+Users of a platform cannot see the recommendations issued to another user, and recommendations will be unique to each user based on their activity patterns. A database management system can help prevent and enforce rules surrounding what user sees what…
+Users can manually query for items on sale. A relational database allows users to write intuitive queries.
 
 
 ### What platform will the final project be on?
