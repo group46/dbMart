@@ -70,3 +70,47 @@ CREATE TABLE 'transaction_has' (
     FOREIGN KEY (postid) REFERENCES product_posts (postid),
     FOREIGN KEY (uid) REFERENCES buyer (uid)
 );
+
+CREATE TABLE 'comment' (
+    'commentid' INTEGER,
+    'postid' INTEGER,
+    'uid' VARCHAR(30),
+    'commenttxt' VARCHAR(500),
+    'commentdate' DATE,
+    'edited?' BOOLEAN,
+    PRIMARY KEY (commentid, postid, uid),
+    FOREIGN KEY (postid) REFERENCES product_posts (postid),
+    FOREIGN KEY (uid) REFERENCES user (uid)
+)
+
+CREATE TABLE 'product_posts' (
+    'postid' INTEGER,
+    'uid' VARCHAR(30),
+    'product_description' VARCHAR(1000),
+    'product_name' VARCHAR(30),
+    'post_date' DATE,
+    'price' REAL,
+    'tag' VARCHAR(20),
+    PRIMARY KEY (postid),
+    FOREIGN KEY (uid) REFERENCES user (uid)
+);
+
+CREATE TABLE 'product_photo' (
+    'photoid' INTEGER,
+    'postid' INTEGER,
+    'photo_link' VARCHAR(500), -- link to image
+    PRIMARY KEY (photoid, postid),
+    FOREIGN KEY (postid) REFERENCES product_posts (postid)
+            ON DELETE CASCADE
+            ON UPDATE CASCADE
+);
+
+CREATE TABLE 'uses' (
+    'postid' INTEGER,
+    'uid' VARCHAR(30),
+    'aid' INTEGER,
+    PRIMARY KEY (postid, uid, aid),
+    FOREIGN KEY (postid) REFERENCES product_posts (postid),
+    FOREIGN KEY (uid) REFERENCES user (uid),
+    FOREIGN KEY (aid) REFERENCES advertisement (aid)
+);
