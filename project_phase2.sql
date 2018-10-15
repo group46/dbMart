@@ -1,3 +1,9 @@
+-- Group 46
+-- Gina hong i0l0b
+-- Nicholas Chin p8d1b
+-- Aleksei Feklisov y8v0b
+-- Maximilian Was-Damji n6g1b
+
 CREATE DATABASE IF NOT EXISTS 'Craigsbook';
 USE 'Craigsbook';
 
