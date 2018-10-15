@@ -1,6 +1,18 @@
 # cpsc304db
 # Market Database
 
+## 2) Logical Design
+### ER Diagram
+The ER Diagram is the entity_relation_diagram.jpg and is also found in the cpsc304_coverpage_document.pdf
+
+### Relational Model, Functional Dependencies, and Normalization
+Info about translating into relational model, the FDs, and the normalization are in the cpsc304_coverpage_document.pdf
+
+### SQL DDL Create Tables
+See the project_phase2.sql
+
+
+## 1) Project Proposal
 ### What is the domain of the application?
 
 The domain of our application is a social media platform that focuses on allowing a marketplace, for users to buy and sell products. Users can bid for goods, leave comments, and search through the product tag to make a decision. Based on a user’s previous purchases, posts, comments, tags, and friends, our platform will recommend products to the user.
