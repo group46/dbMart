@@ -1,8 +1,6 @@
 CREATE DATABASE IF NOT EXISTS 'Craigsbook';
 USE 'Craigsbook';
 
--- test test
-
 DROP TABLE IF EXISTS 'advertisement';
 DROP TABLE IF EXISTS 'post_likes';
 DROP TABLE IF EXISTS 'user';
@@ -33,10 +31,6 @@ CREATE TABLE 'post_likes' (
     FOREIGN KEY (postid) REFERENCES product_posts (postid)
         ON DELETE CASCADE
 )
-
--- Might want to delete post_likes and instead use
--- aggregation 'product_posts' likes 'user' --> used_by 'advertisement'
--- consult TA about this...
 
 CREATE TABLE 'user' (
     'uid' VARCHAR(30) NOT NULL,
