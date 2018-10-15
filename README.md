@@ -1,4 +1,4 @@
-# cpsc304db
+# cpsc304db-Group 46
 # Market Database
 
 ## [Phase 1 - Project Proposal](https://github.com/cpsc304-group46/cpsc304db/blob/master/README.md#1-project-proposal)
