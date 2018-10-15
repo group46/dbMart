@@ -1,5 +1,4 @@
-# cpsc304db-Group 46
-# Market Database
+# Market Database :computer: :gift:
 
 ## Table of Content
 [Phase 1 - Project Proposal](https://github.com/cpsc304-group46/cpsc304db/blob/master/README.md#1-project-proposal) | [Phase 2 - Logical Design](https://github.com/cpsc304-group46/cpsc304db/blob/master/README.md#2-logical-design)
