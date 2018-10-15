@@ -17,3 +17,6 @@ pull requests
             - switch branch to master
         git push origin branchname
             - pushing changes in branchname to master branch
+
+        Do I have to switch to master branch? test test
+        I might have to check
