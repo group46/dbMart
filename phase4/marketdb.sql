@@ -287,6 +287,8 @@ INSERT INTO ad_has_tag
 VALUES ('00000004', 'Boat');
 
 
+-- need to add user_likes, comment_authors, and 1 transaction_buys
+
 select * from user;
 select * from advertisement a, ad_has_tag at where a.adid=at.adid;
 select * from tag;
