@@ -32,3 +32,5 @@ Using git for project management
         git pull
         2) delete the previous branch you made for the edit
         git branch -d branchname
+        
+        now go back to step 3! (git checkout -b newbranchname)
