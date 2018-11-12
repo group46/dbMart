@@ -4,7 +4,7 @@ Using git for project management
         cd into whatever local directory you want these files to be stored at
         git clone https://github.com/cpsc304-group46/cpsc304db.git
 
-    3. Making changes / adding features
+    2. Making changes / adding features
         git checkout -b branchname
             - before making any changes make a branch!
             - branchname could be featurename, etc...
@@ -33,4 +33,4 @@ Using git for project management
         2) delete the previous branch you made for the edit
         git branch -d branchname
         
-        now go back to step 3! (git checkout -b newbranchname)
+        now go back to step 2 and repeat! (git checkout -b newbranchname)
