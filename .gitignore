@@ -38,5 +38,5 @@ Thumbs.db
 # CPSC304 specific #
 ####################
 /tutorials
-node_modules
-*.json
+/trial
+/node_modules
