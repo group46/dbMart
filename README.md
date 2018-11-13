@@ -1,8 +1,8 @@
 # :tada: :dollar: Market Database :computer: :tada:
 
 
-### Preview of project (Nov 12th)
-![mainpage](https://user-images.githubusercontent.com/32022159/48392553-b9cb0700-e6c0-11e8-9acf-b5e5c30dc4bd.jpg)
+### Preview of project (Nov 13th)
+![mainpage2](https://user-images.githubusercontent.com/32022159/48400076-35857d80-e6da-11e8-944d-ae654dbc338d.jpg)
 
 
 ## Table of Content
