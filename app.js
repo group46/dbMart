@@ -10,8 +10,6 @@ const app = express();
 const {getMainPage, getMainDate, getMainPrice} = require('./routes/index');
 const {getLogin} = require('./routes/login');
 const {getUsers} = require('./routes/users');
-const {getAddPost} = require('./routes/addposts')
-const {getPostPage} = require('./routes/products.js')
 // const {addPlayerPage, addPlayer, deletePlayer, editPlayer, editPlayerPage} = require('./routes/player');
 const port = 5000;
 
@@ -19,9 +17,9 @@ const port = 5000;
 // mysql.createConnection takes in a configuration object which contains host, user, password and the database name.
 const db = mysql.createConnection ({
     host: 'localhost',
-    user: 'ginahong',
-    password: 'ghdatabase',
-    database: 'MarketDB'
+    user: 'root',
+    password: 'password1',
+    database: 'marketdb'
 });
 
 db.connect((err) => {
@@ -38,7 +36,7 @@ app.set('view engine', 'ejs') // configure template engine
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json()); // parse form data client
 app.use(express.static(path.join(__dirname, 'public'))) // conf express to use the public folder
-app.use(fileUpload()); // configure fileUpload
+//app.use(fileUpload()); // configure fileUpload
 
 // routes for the app
 
@@ -47,12 +45,12 @@ app.get('/date', getMainDate);
 app.get('/price', getMainPrice);
 app.get('/login', getLogin);
 app.get('/users', getUsers);
-app.get('/add_post', getAddPost);
-app.get('/see_post', getPostPage);
 /*
+app.get('/productpost:postid', getPostPage);
 app.get('/productpost/edit:uid', editPostPage);
 app.get('/productpost/delete:uid', deletePostPage);
 */
+//app.get('/users/create-buyer/', createBuyAcc)
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
