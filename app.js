@@ -10,6 +10,8 @@ const app = express();
 const {getMainPage, getMainDate, getMainPrice} = require('./routes/index');
 const {getLogin} = require('./routes/login');
 const {getUsers} = require('./routes/users');
+const {getAddPost} = require('./routes/addposts')
+const {getPostPage} = require('./routes/products.js')
 // const {addPlayerPage, addPlayer, deletePlayer, editPlayer, editPlayerPage} = require('./routes/player');
 const port = 5000;
 
@@ -45,8 +47,9 @@ app.get('/date', getMainDate);
 app.get('/price', getMainPrice);
 app.get('/login', getLogin);
 app.get('/users', getUsers);
+app.get('/add_post', getAddPost);
+app.get('/see_post', getPostPage);
 /*
-app.get('/productpost:postid', getPostPage);
 app.get('/productpost/edit:uid', editPostPage);
 app.get('/productpost/delete:uid', deletePostPage);
 */
