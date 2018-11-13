@@ -1,7 +1,7 @@
 # :tada: :dollar: Market Database :computer: :tada:
 
 ## Table of Content
-### PLEASE read the getting_started_git.txt! It might help you get set up.
+### PLEASE read the Getting Started section below! It might help you get set up.
 
 [Getting Started](https://github.com/cpsc304-group46/cpsc304db/blob/master/README.md#0-Getting-Started) | [Phase 1 - Project Proposal](https://github.com/cpsc304-group46/cpsc304db/blob/master/README.md#1-project-proposal) | [Phase 2 - Logical Design](https://github.com/cpsc304-group46/cpsc304db/blob/master/README.md#2-logical-design)
 ------------ | ------------- | ---------------
