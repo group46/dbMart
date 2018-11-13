@@ -13,6 +13,9 @@
 
 ## 0. Getting Started
 
+### Preview of project (Nov 12th)
+![mainpage](https://user-images.githubusercontent.com/32022159/48392553-b9cb0700-e6c0-11e8-9acf-b5e5c30dc4bd.jpg)
+
 ### NODE Modules used are listed on package.json (see the dependencies):
  
  First install nodemon globally. This just makes running your app easier.
