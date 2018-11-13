@@ -36,7 +36,7 @@ app.set('view engine', 'ejs') // configure template engine
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json()); // parse form data client
 app.use(express.static(path.join(__dirname, 'public'))) // conf express to use the public folder
-//app.use(fileUpload()); // configure fileUpload
+app.use(fileUpload()); // configure fileUpload
 
 // routes for the app
 
@@ -50,7 +50,19 @@ app.get('/productpost:postid', getPostPage);
 app.get('/productpost/edit:uid', editPostPage);
 app.get('/productpost/delete:uid', deletePostPage);
 */
-//app.get('/users/create-buyer/', createBuyAcc)
+//Show separate list for buyers and sellers
+app.get('/users/buyers/', getBuyers)
+app.get('/users/sellers', getSellers)
+
+//If user sells a thing, he joins buyers list, if he purchases a thing, he joins sellers list
+app.post('/makepost-buy', insertBuyer)
+app.post('/makepurchase', insertSeller)
+
+//Update info of users
+app.post('/accinfo', updateUserInfo)
+
+//Update the post to sold, once transaction occurs
+app.post('/transactionsuccessful', soldUpdate)
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);

@@ -13,4 +13,18 @@ module.exports = {
             });
         });
     },
+
+    soldUpdate: (req, res) => {
+      let query = "UPDATE "
+
+      db.query(query, (err, result) => {
+        if (err) {
+          res.redirect('/unsuccessful')
+        }
+        res.render('transaction.ejs', {
+          title: "DBMart | Transaction"
+          , posts: result
+        })
+      })
+    },
 }
