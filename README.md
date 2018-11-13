@@ -98,6 +98,7 @@ Info about translating into relational model, the FDs, and the normalization are
 See the project_phase2.sql
 
 ## Project Progress
+![mainpage](https://user-images.githubusercontent.com/32022159/48392553-b9cb0700-e6c0-11e8-9acf-b5e5c30dc4bd.jpg)
 
 
 
