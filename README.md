@@ -3,9 +3,55 @@
 ## Table of Content
 ### PLEASE read the getting_started_git.txt! It might help you get set up.
 
-[Phase 1 - Project Proposal](https://github.com/cpsc304-group46/cpsc304db/blob/master/README.md#1-project-proposal) | [Phase 2 - Logical Design](https://github.com/cpsc304-group46/cpsc304db/blob/master/README.md#2-logical-design)
------------- | -------------
+[Getting Started](https://github.com/cpsc304-group46/cpsc304db/blob/master/README.md#0-Getting-Started) | [Phase 1 - Project Proposal](https://github.com/cpsc304-group46/cpsc304db/blob/master/README.md#1-project-proposal) | [Phase 2 - Logical Design](https://github.com/cpsc304-group46/cpsc304db/blob/master/README.md#2-logical-design)
+------------ | ------------- | ---------------
+### 0. Getting Started
 
+#### NODE Modules used are listed on package.json (see the dependencies):
+        npm install nodemon -g         //global install nodemon to run this app
+
+        then go to app.js and modify the 'username' and 'password' to run mysql **IMPORTANT
+
+        once all dependencies are installed and app.js modified, try this on terminal
+        nodemon app.js
+
+#### Using git for project management
+    1. clone repo using:
+        On terminal
+        cd into whatever local directory you want these files to be stored at
+        git clone https://github.com/cpsc304-group46/cpsc304db.git
+
+    2. Making changes / adding features
+        git checkout -b branchname
+            - before making any changes make a branch!
+            - branchname could be featurename, etc...
+        (then atom . or subl . to open in your text editor and edit!)
+
+    3. once change is made:
+        git add .
+            - adding changes to your branch
+        git commit -m "messages/short description of what was done"
+        git checkout master
+            - switch branch to master
+        git push origin branchname
+            - pushing changes in branchname to master branch
+
+    4. Make pull request on github
+        https://services.github.com/on-demand/github-cli/open-pull-request-github
+        after you "git push origin branchname"
+        Make pull request detailing the changes/features.
+
+    5. Once pull request is made, the branch will be merged with master branch after a review.
+    Once branch merged w/ master branch, make sure to
+        1) update your local copy of master branch
+        git branch
+            - to check you are in master branch
+        git pull
+        2) delete the previous branch you made for the edit
+        git branch -d branchname
+
+        now go back to step 2 and repeat! (git checkout -b newbranchname)
+        
 ### 1. Project Proposal
 #### What is the domain of the application?
 
