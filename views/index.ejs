@@ -1,0 +1,43 @@
+<%# table view of all users %>
+<% include partials/header.ejs %>
+<div class="table-wrapper">
+    <% if (posts.length > 0) {%>
+        <table class="table table-hovered">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Post ID</th>
+                    <th scope="col">Posted by UID</th>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Product Description</th>
+                    <th scope="col"><a href="/date">Post Date</a></th>
+                    <th scope="col"><a href="/price">Price</a></th>
+                    <th scope="col">Sold?</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% posts.forEach((post, index) => { %>
+                    <tr>
+                        <th scope="row"><%= post.postid %></th>
+                        <!-- <td><img src="/assets/img/<%= post.image %>" class="rounded-circle post-img" alt=""></td> -->
+                        <td><%= post.postid %></td>
+                        <td><%= post.product_name %></td>
+                        <td><%= post.product_description %></td>
+                        <td><%= post.post_date %></td>
+                        <td>$<%= post.price %></td>
+                        <td><%= post.sold %></td>
+                        <td>
+                            <a href="/edit/<%= post.postid %>" target="_blank" rel="noopener" class="btn btn-sm btn-success">Edit</a>
+                            <a href="/delete/<%= post.postid %>" class="btn btn-sm btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    <% } else { %>
+        <p class="text-center">No posts found. Go <a href="/add" >here</a> to add posts.</p>
+    <% } %>
+</div>
+</div>
+</body>
+</html>

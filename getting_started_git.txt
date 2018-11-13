@@ -32,5 +32,13 @@ Using git for project management
         git pull
         2) delete the previous branch you made for the edit
         git branch -d branchname
-        
+
         now go back to step 2 and repeat! (git checkout -b newbranchname)
+
+    NODE Modules used are listed on package.json (see the dependencies):
+        npm install nodemon -g         //global install nodemon to run this app
+
+        then go to app.js and modify the 'username' and 'password' to run mysql **IMPORTANT
+
+        once all dependencies are installed and app.js modified, try this on terminal
+        nodemon app.js
