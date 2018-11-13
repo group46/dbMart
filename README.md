@@ -3,8 +3,14 @@
 ## Table of Content
 ### PLEASE read the Getting Started section below! It might help you get set up.
 
-[Getting Started](https://github.com/cpsc304-group46/cpsc304db/blob/master/README.md#0-Getting-Started) | [Phase 1 - Project Proposal](https://github.com/cpsc304-group46/cpsc304db/blob/master/README.md#1-project-proposal) | [Phase 2 - Logical Design](https://github.com/cpsc304-group46/cpsc304db/blob/master/README.md#2-logical-design)
------------- | ------------- | ---------------
+| Section Name  | Section Description |
+| ------------- | ------------- |
+| [0 - Getting Started](https://github.com/cpsc304-group46/cpsc304db/blob/master/README.md#0-Getting-Started)  | Quick guide on git and getting node.js set up for this app!  |
+| [Phase 1 - Project Proposal](https://github.com/cpsc304-group46/cpsc304db/blob/master/README.md#1-project-proposal)  | Write up on our answers for phase1 of the project.  |
+| [Phase 2 - Logical Design](https://github.com/cpsc304-group46/cpsc304db/blob/master/README.md#2-logical-design) | Write up on what we did for phase 2 of the project. |
+| [Project Progress](https://github.com/cpsc304-group46/cpsc304db/blob/master/README.md#Project-Progress) | Just quick image on what the project looks like as of Nov 12 |
+
+
 ## 0. Getting Started
 
 ### NODE Modules used are listed on package.json (see the dependencies):
@@ -90,3 +96,8 @@ Info about translating into relational model, the FDs, and the normalization are
 
 ### SQL DDL Create Tables
 See the project_phase2.sql
+
+## Project Progress
+
+
+
