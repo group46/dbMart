@@ -9,7 +9,7 @@ const app = express();
 
 const {getMainPage, getMainDate, getMainPrice} = require('./routes/index');
 const {getLogin} = require('./routes/login');
-const {getUsers} = require('./routes/users');
+const {getUsers, getBuyers, getSellers, insertBuyer, insertSeller} = require('./routes/users');
 // const {addPlayerPage, addPlayer, deletePlayer, editPlayer, editPlayerPage} = require('./routes/player');
 const port = 5000;
 
@@ -59,10 +59,10 @@ app.post('/makepost-buy', insertBuyer)
 app.post('/makepurchase', insertSeller)
 
 //Update info of users
-app.post('/accinfo', updateUserInfo)
+//app.post('/accinfo', updateUserInfo)
 
 //Update the post to sold, once transaction occurs
-app.post('/transactionsuccessful', soldUpdate)
+//app.post('/transactionsuccessful', soldUpdate)
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
