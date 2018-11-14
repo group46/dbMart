@@ -7,11 +7,14 @@ const mysql = require('mysql');
 const path = require('path');
 const app = express();
 
+// Calling function from routes/<file>.js file
 const {getMainPage, getMainDate, getMainPrice} = require('./routes/index');
 const {getLogin} = require('./routes/login');
 const {getUsers} = require('./routes/users');
-const {getAddPost} = require('./routes/addposts')
-const {getPostPage} = require('./routes/products.js')
+const {addPostPage, getAddPostPage} = require('./routes/addpost');
+
+const {getPostPage} = require('./routes/products.js');
+
 // const {addPlayerPage, addPlayer, deletePlayer, editPlayer, editPlayerPage} = require('./routes/player');
 const port = 5000;
 
@@ -47,8 +50,11 @@ app.get('/date', getMainDate);
 app.get('/price', getMainPrice);
 app.get('/login', getLogin);
 app.get('/users', getUsers);
-app.get('/add_post', getAddPost);
 app.get('/see_post', getPostPage);
+app.post('/add_post', addPostPage);
+app.get('/add_post', getAddPostPage);
+
+
 /*
 app.get('/productpost/edit:uid', editPostPage);
 app.get('/productpost/delete:uid', deletePostPage);
