@@ -7,7 +7,7 @@ const mysql = require('mysql');
 const path = require('path');
 const app = express();
 
-const {getMainPage, getMainDate, getMainPrice} = require('./routes/index');
+const {getMainPage, getMainDate, getMainPrice, getAccCreate} = require('./routes/index');
 const {getLogin} = require('./routes/login');
 const {getUsers, getBuyers, getSellers, insertBuyer, insertSeller} = require('./routes/users');
 // const {addPlayerPage, addPlayer, deletePlayer, editPlayer, editPlayerPage} = require('./routes/player');
@@ -45,6 +45,8 @@ app.get('/date', getMainDate);
 app.get('/price', getMainPrice);
 app.get('/login', getLogin);
 app.get('/users', getUsers);
+//takes you to createAcc page
+app.post('/createacc', getAccCreate);
 /*
 app.get('/productpost:postid', getPostPage);
 app.get('/productpost/edit:uid', editPostPage);
@@ -57,6 +59,8 @@ app.get('/users/sellers', getSellers)
 //If user sells a thing, he joins buyers list, if he purchases a thing, he joins sellers list
 app.post('/makepost-buy', insertBuyer)
 app.post('/makepurchase', insertSeller)
+//Create an account given information about user
+//app.post('createaccdone', createAcc)
 
 //Update info of users
 //app.post('/accinfo', updateUserInfo)

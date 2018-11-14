@@ -15,7 +15,8 @@ module.exports = {
     },
 
     soldUpdate: (req, res) => {
-      let query = "UPDATE productpost set sold='true' WHERE postid=?"
+      let uid = req.body.uid
+      let query = "UPDATE 'product_posts' set sold='true' WHERE postid='" + uid + "'?"
 
       db.query(query, (err, result) => {
         if (err) {
