@@ -1,5 +1,10 @@
 <%# // mainpage of the app. Contain product post table and advertisement sidebar. %>
 <% include partials/header.ejs %>
+<div class="container">
+    <% if (message != '') { %>
+        <p class="text-center text-danger"><%= message %></p>
+    <% } %>
+</div>
     <div class="table-wrapper">
         <% if (users.length > 0) {%>
             <table class="table table-hovered">

@@ -9,7 +9,8 @@ module.exports = {
             }
             res.render('users.ejs', {
                 title: "DBMart | Users"
-                ,users: result
+                ,users: result,
+                message: ""
             });
         });
     },
@@ -23,7 +24,8 @@ module.exports = {
             }
             res.render('users.ejs', {
                 title: "DBMart | Buyers"
-                ,users: result
+                ,users: result,
+                message: ""
             });
         });
     },
@@ -37,7 +39,8 @@ module.exports = {
             }
             res.render('users.ejs', {
                 title: "DBMart | Sellers"
-                ,users: result
+                ,users: result,
+                message: ""
             });
         });
     },
@@ -49,26 +52,36 @@ module.exports = {
         let password = req.body.password
         let birthdate = req.body.birthdate
 
-        let nameQuery = "SELECT * FROM `user` WHERE uid = '" + uid + "'"
-        let query = "INSERT INTO `user` VALUES ('" + uid + "', '" + first_name + "', '" + last_name + "', '" + password + "', '" + birthdate + "')"
+        let insertCheck = "SELECT * FROM `user` WHERE uid = '" + uid + "'"
+        let insertUser = "INSERT INTO `user` VALUES ('" + uid + "', '" + first_name + "', '" + last_name + "', '" + password + "', '" + birthdate + "')"
+        let userView = "SELECT * FROM `current_users`"
 
-        db.query(nameQuery,(err, res1) => {
+        db.query(insertCheck, (err, res1) => {
             if (err) {
-                message = "Error"
-                console.log(err);
+                message = "Error in first uid verification query"
+                console.log(mess);
+            }
+            if (res1.length > 0) {
+                res.render('add-acc.ejs', {
+                    title: "DBMart | Account Creation"
+                    ,message: "Redundant username, please pick another username!"
+                });
             } else {
-                //if error, throw random invalid entry, else add user to buyers
-                db.query(query, (err, res2) => {
+                db.query(insertUser, (err, res2) => {
                     if (err) {
-                        message = "Invalid entry";
-                    } else {
-                        //log insertion, no extra render needed?
-                        console.log(res2);
-                        res.render('users.ejs', {
-                            title: "DBMart | User Added"
-                            ,users: res1
-                        });
+                        message = "Invalid entry, could not create account.";
                     }
+                    db.query(userView, (err, res3) => {
+                        if (err) {
+                            message = "something went wrong with showing you the new user.";
+                        }
+                        console.log("User account created!");
+                        res.render('users.ejs', {
+                            title: "DBMart | Account Created"
+                            ,users: res3
+                            ,message: "User account successfully created!"
+                        });
+                    });
                 });
             }
         });
