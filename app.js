@@ -51,7 +51,7 @@ app.get('/productpost/edit:uid', editPostPage);
 app.get('/productpost/delete:uid', deletePostPage);
 app.post('/add_user', addUser);    //require users.js
 app.post('/add_seller', addSeller);    //require users.js?
-*/
+
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
