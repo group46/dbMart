@@ -9,76 +9,83 @@ module.exports = {
             }
             res.render('users.ejs', {
                 title: "DBMart | Users"
-                ,users: result
+                ,users: result,
+                message: ""
             });
         });
     },
 
     getBuyers: (req, res) => {
-      let query = "SELECT uid, first_name, last_name, DATE_FORMAT(`birthdate`, '%Y-%m-%d') AS birthdate FROM `buyer` ORDER BY first_name DESC"
-      db.query(query, (err, result) => {
-        if (err) {
-          res.redirect('/')
-        }
-        res.render('users.ejs', {
-          title: "DBMart | Buyers"
-          , users: result
-        })
-      })
+        let query = "SELECT uid, first_name, last_name, DATE_FORMAT(`birthdate`, '%Y-%m-%d') AS birthdate FROM `buyer` ORDER BY first_name DESC"
+
+        db.query(query, (err, result) => {
+            if (err) {
+                res.redirect('/')
+            }
+            res.render('users.ejs', {
+                title: "DBMart | Buyers"
+                ,users: result,
+                message: ""
+            });
+        });
     },
 
     getSellers: (req, res) => {
-      let query = "SELECT uid, first_name, last_name, DATE_FORMAT(`birthdate`, '%Y-%m-%d') AS birthdate FROM `seller`"
+        let query = "SELECT uid, first_name, last_name, DATE_FORMAT(`birthdate`, '%Y-%m-%d') AS birthdate FROM `seller`"
 
-      db.query(query, (err, result) => {
-        if (err) {
-          res.redirect('/')
-        }
-        res.render('users.ejs', {
-          title: "DBMart | Sellers"
-          , users: result
-        })
-      })
+        db.query(query, (err, result) => {
+            if (err) {
+                res.redirect('/')
+            }
+            res.render('users.ejs', {
+                title: "DBMart | Sellers"
+                ,users: result,
+                message: ""
+            });
+        });
     },
 
-    insertBuyer: (req, res) => {
+    insertUser: (req, res) => {
+        let uid = req.body.user_id
+        let first_name = req.body.first_name
+        let last_name = req.body.last_name
+        let password = req.body.password
+        let birthdate = req.body.birthdate
 
-      let uid = req.body.uid
-      let first_name = req.body.first_name
-      let last_name = req.body.last_name
-      let password = req.body.password
-      let birthdate = req.body.birthdate
+        let insertCheck = "SELECT * FROM `user` WHERE uid = '" + uid + "'"
+        let insertUser = "INSERT INTO `user` VALUES ('" + uid + "', '" + first_name + "', '" + last_name + "', '" + password + "', '" + birthdate + "')"
+        let userView = "SELECT * FROM `current_users`"
 
-      let nameQuery = "SELECT * FROM 'user' AS u WHERE u.uid = '" + uid + "'"
-      let query = "INSERT INTO 'buyer' (uid, first_name, last_name, birthdate) values ('" + uid + "', '" + first_name + "', '" + last_name + "', '" + password + "', '" + birthdate + "')"
-
-      db.query(nameQuery,(err, res) => {
-        if (err) {
-          throw err
-          console.log(err)
-        }
-        //if userid is empty, no user exists, redirects to make new acc
-        if (res.length = 0) {
-                res.redirect('/add-acc')
-        } else {
-          //if error, throw random invalid entry, else add user to buyers
-          db.query(query, (err, res) => {
+        db.query(insertCheck, (err, res1) => {
             if (err) {
-              throw err
-              message = "Invalid entry";
-              res.render('productpost.ejs', {
-                message,
-                title: "DBMart | Make new post"
-              })
+                message = "Error in first uid verification query"
+                console.log(mess);
+            }
+            if (res1.length > 0) {
+                res.render('add-acc.ejs', {
+                    title: "DBMart | Account Creation"
+                    ,message: "Redundant username, please pick another username!"
+                });
             } else {
-            //log insertion, no extra render needed?
-            console.log(res)
-            //res.redirect('/makepost-buy')
-          }
-        })
-      }
-    })
-  },
+                db.query(insertUser, (err, res2) => {
+                    if (err) {
+                        message = "Invalid entry, could not create account.";
+                    }
+                    db.query(userView, (err, res3) => {
+                        if (err) {
+                            message = "something went wrong with showing you the new user.";
+                        }
+                        console.log("User account created!");
+                        res.render('users.ejs', {
+                            title: "DBMart | Account Created"
+                            ,users: res3
+                            ,message: "User account successfully created!"
+                        });
+                    });
+                });
+            }
+        });
+    },
 
     insertSeller: (req, res) => {
 
@@ -88,12 +95,11 @@ module.exports = {
       let password = req.body.password
       let birthdate = req.body.birthdate
 
-      let nameQuery = "SELECT * FROM 'user' AS u WHERE u.uid = '" + uid + "'"
-      let query = "INSERT INTO 'seller' (uid, first_name, last_name, birthdate) values ('" + uid + "', '" + first_name + "', '" + last_name + "', '" + password + "', '" + birthdate + "')"
+      let nameQuery = "SELECT * FROM `user` AS u WHERE u.uid = '" + uid + "'"
+      let query = "INSERT INTO `seller` (uid, first_name, last_name, birthdate) values ('" + uid + "', '" + first_name + "', '" + last_name + "', '" + password + "', '" + birthdate + "')"
 
       db.query(nameQuery,(err, res) => {
         if (err) {
-          throw err
           //print invalid entry?
           console.log(err)
         }

@@ -7,10 +7,10 @@ const mysql = require('mysql');
 const path = require('path');
 const app = express();
 
-const {getMainPage, getMainDate, getMainPrice, getAccCreate} = require('./routes/index');
+const {getMainPage, getMainDate, getMainPrice, getAccCreatePage} = require('./routes/index');
 const {getLogin} = require('./routes/login');
 
-const {getUsers, getBuyers, getSellers, insertBuyer, insertSeller} = require('./routes/users');
+const {getUsers, getBuyers, getSellers, insertUser, insertSeller} = require('./routes/users');
 const {getAddPost} = require('./routes/addposts')
 const {getPostPage} = require('./routes/products')
 const {getPriceRange ,getPriceTable} = require('./routes/popq')
@@ -51,7 +51,8 @@ app.get('/price', getMainPrice);
 app.get('/login', getLogin);
 app.get('/users', getUsers);
 //takes you to createAcc page
-app.post('/createacc', getAccCreate);
+app.get('/getacccreate', getAccCreatePage);
+app.post('/getacccreate', insertUser);
 app.get('/add_post', getAddPost);
 app.get('/see_post', getPostPage);
 
@@ -69,12 +70,12 @@ app.post('/add_user', addUser);    //require users.js
 app.post('/add_seller', addSeller);    //require users.js?
 */
 //Show separate list for buyers and sellers
-app.get('/users/buyers/', getBuyers)
-app.get('/users/sellers', getSellers)
+app.get('/users/buyers/', getBuyers);
+app.get('/users/sellers', getSellers);
 
 //If user sells a thing, he joins buyers list, if he purchases a thing, he joins sellers list
-app.post('/makepost-buy', insertBuyer)
-app.post('/makepurchase', insertSeller)
+// app.post('/makepost-buy', insertUser);
+app.post('/makepurchase', insertSeller);
 //Create an account given information about user
 //app.post('createaccdone', createAcc)
 

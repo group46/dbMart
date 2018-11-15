@@ -167,13 +167,18 @@ VALUES ( '111', '0101', '0000', 'card', '2', 'u1');
 UPDATE product_posts SET sold=1
 WHERE postid='2';
 
+-- create views
+CREATE VIEW current_users AS
+SELECT uid, first_name, last_name, birthdate
+FROM user;
+
 
 -- test queries to check
 select * from user;
 select * from advertisement a, ad_has_tag at where a.adid=at.adid;
 select * from tag;
 select * from product_posts p, post_has_tag pt where p.postid=pt.postid;
-select * from user u, user_likes ul, product_posts p 
+select * from user u, user_likes ul, product_posts p
 where u.uid=ul.uid and ul.postid=p.postid;
 select * from comment_authors order by commentdate desc;
 select * from transaction_buys;
