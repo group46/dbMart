@@ -7,11 +7,14 @@ const mysql = require('mysql');
 const path = require('path');
 const app = express();
 
-const {getMainPage, getMainDate, getMainPrice} = require('./routes/index');
+const {getMainPage, getMainDate, getMainPrice, getAccCreate} = require('./routes/index');
 const {getLogin} = require('./routes/login');
-const {getUsers} = require('./routes/users');
+
+const {getUsers, getBuyers, getSellers, insertBuyer, insertSeller} = require('./routes/users');
 const {getAddPost} = require('./routes/addposts')
-const {getPostPage} = require('./routes/products.js')
+const {getPostPage} = require('./routes/products')
+const {getPriceRange ,getPriceTable} = require('./routes/popq')
+
 // const {addPlayerPage, addPlayer, deletePlayer, editPlayer, editPlayerPage} = require('./routes/player');
 const port = 5000;
 
@@ -20,8 +23,8 @@ const port = 5000;
 const db = mysql.createConnection ({
     host: 'localhost',
     user: 'root',
-    password: 'nickjon20',
-    database: 'MarketDB'
+    password: 'password1',
+    database: 'marketdb'
 });
 
 db.connect((err) => {
@@ -47,15 +50,39 @@ app.get('/date', getMainDate);
 app.get('/price', getMainPrice);
 app.get('/login', getLogin);
 app.get('/users', getUsers);
+//takes you to createAcc page
+app.post('/createacc', getAccCreate);
 app.get('/add_post', getAddPost);
 app.get('/see_post', getPostPage);
+
+app.get('/pop_q/chooseprice', getPriceRange); // gh
+app.post('/pop_q/chooseprice', getPriceTable); // gh
+
+// app.get('/pop_q/tag', getTagUser);
+// app.get('/pop_q/comments', getUserComments);
 /*
+app.get('/productpost:postid', getPostPage);
 app.get('/productpost/edit:uid', editPostPage);
 app.get('/productpost/delete:uid', deletePostPage);
 app.post('/add_post', addPost);     //require products.js
 app.post('/add_user', addUser);    //require users.js
 app.post('/add_seller', addSeller);    //require users.js?
 */
+//Show separate list for buyers and sellers
+app.get('/users/buyers/', getBuyers)
+app.get('/users/sellers', getSellers)
+
+//If user sells a thing, he joins buyers list, if he purchases a thing, he joins sellers list
+app.post('/makepost-buy', insertBuyer)
+app.post('/makepurchase', insertSeller)
+//Create an account given information about user
+//app.post('createaccdone', createAcc)
+
+//Update info of users
+//app.post('/accinfo', updateUserInfo)
+
+//Update the post to sold, once transaction occurs
+//app.post('/transactionsuccessful', soldUpdate)
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
