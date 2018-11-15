@@ -8,11 +8,14 @@ const path = require('path');
 const app = express();
 
 // Calling function from routes/<file>.js file
-const {getMainPage, getMainDate, getMainPrice} = require('./routes/index');
+const {getMainPage, getMainDate, getMainPrice, getAccCreate} = require('./routes/index');
 const {getLogin} = require('./routes/login');
-const {getUsers} = require('./routes/users');
+const {getUsers, getBuyers, getSellers, insertBuyer, insertSeller} = require('./routes/users');
 const {addPostPage, getAddPostPage, deletePost} = require('./routes/post');
 const {getPostPage} = require('./routes/products.js');
+const {getPriceRange ,getPriceTable} = require('./routes/popq')
+
+
 
 // const {addPlayerPage, addPlayer, deletePlayer, editPlayer, editPlayerPage} = require('./routes/player');
 const port = 5000;
@@ -61,6 +64,21 @@ app.post('/add_post', addPost);     //require products.js
 app.post('/add_user', addUser);    //require users.js
 app.post('/add_seller', addSeller);    //require users.js?
 */
+//Show separate list for buyers and sellers
+app.get('/users/buyers/', getBuyers)
+app.get('/users/sellers', getSellers)
+
+//If user sells a thing, he joins buyers list, if he purchases a thing, he joins sellers list
+app.post('/makepost-buy', insertBuyer)
+app.post('/makepurchase', insertSeller)
+//Create an account given information about user
+//app.post('createaccdone', createAcc)
+
+//Update info of users
+//app.post('/accinfo', updateUserInfo)
+
+//Update the post to sold, once transaction occurs
+//app.post('/transactionsuccessful', soldUpdate)
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
