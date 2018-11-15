@@ -12,8 +12,8 @@ const {getMainPage, getMainDate, getMainPrice} = require('./routes/index');
 const {getLogin} = require('./routes/login');
 const {getUsers} = require('./routes/users');
 const {addPostPage, getAddPostPage} = require('./routes/addpost');
-
 const {getPostPage} = require('./routes/products.js');
+const {getPriceRange, getPriceTable} = require('./routes/popq')
 
 // const {addPlayerPage, addPlayer, deletePlayer, editPlayer, editPlayerPage} = require('./routes/player');
 const port = 5000;
@@ -52,10 +52,7 @@ app.get('/login', getLogin);
 app.get('/users', getUsers);
 app.get('/see_post', getPostPage);
 app.post('/add_post', addPostPage);
-app.get('/add_post', getAddPostPage);
-
-
-/*
+app.get('/add_post', getAdd/*
 app.get('/productpost/edit:uid', editPostPage);
 app.get('/productpost/delete:uid', deletePostPage);
 app.post('/add_post', addPost);     //require products.js

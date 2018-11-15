@@ -13,4 +13,19 @@ module.exports = {
             });
         });
     },
+
+    soldUpdate: (req, res) => {
+      let uid = req.body.uid
+      let query = "UPDATE 'product_posts' set sold='true' WHERE postid='" + uid + "'?"
+
+      db.query(query, (err, result) => {
+        if (err) {
+          res.redirect('/unsuccessful')
+        }
+        res.render('transaction.ejs', {
+          title: "DBMart | Transaction"
+          , posts: result
+        })
+      })
+    },
 }
