@@ -9,7 +9,12 @@ const app = express();
 
 const {getMainPage, getMainDate, getMainPrice, getAccCreate} = require('./routes/index');
 const {getLogin} = require('./routes/login');
+
 const {getUsers, getBuyers, getSellers, insertBuyer, insertSeller} = require('./routes/users');
+const {getAddPost} = require('./routes/addposts')
+const {getPostPage} = require('./routes/products')
+const {getPriceRange ,getPriceTable} = require('./routes/popq')
+
 // const {addPlayerPage, addPlayer, deletePlayer, editPlayer, editPlayerPage} = require('./routes/player');
 const port = 5000;
 
@@ -47,10 +52,21 @@ app.get('/login', getLogin);
 app.get('/users', getUsers);
 //takes you to createAcc page
 app.post('/createacc', getAccCreate);
+app.get('/add_post', getAddPost);
+app.get('/see_post', getPostPage);
+
+app.get('/pop_q/chooseprice', getPriceRange); // gh
+app.post('/pop_q/chooseprice', getPriceTable); // gh
+
+// app.get('/pop_q/tag', getTagUser);
+// app.get('/pop_q/comments', getUserComments);
 /*
 app.get('/productpost:postid', getPostPage);
 app.get('/productpost/edit:uid', editPostPage);
 app.get('/productpost/delete:uid', deletePostPage);
+app.post('/add_post', addPost);     //require products.js
+app.post('/add_user', addUser);    //require users.js
+app.post('/add_seller', addSeller);    //require users.js?
 */
 //Show separate list for buyers and sellers
 app.get('/users/buyers/', getBuyers)
