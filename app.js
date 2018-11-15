@@ -8,12 +8,8 @@ const path = require('path');
 const app = express();
 
 // Calling function from routes/<file>.js file
-const {getMainPage, getMainDate, getMainPrice} = require('./routes/index');
-const {getLogin} = require('./routes/login');
-const {getUsers} = require('./routes/users');
+
 const {addPostPage, getAddPostPage} = require('./routes/addpost');
-const {getPostPage} = require('./routes/products.js');
-const {getPriceRange, getPriceTable} = require('./routes/popq')
 
 // const {addPlayerPage, addPlayer, deletePlayer, editPlayer, editPlayerPage} = require('./routes/player');
 const port = 5000;
@@ -23,8 +19,6 @@ const port = 5000;
 const db = mysql.createConnection ({
     host: 'localhost',
     user: 'root',
-    password: 'nickjon20',
-    database: 'MarketDB'
 });
 
 db.connect((err) => {
