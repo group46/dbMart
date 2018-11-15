@@ -8,8 +8,11 @@ const path = require('path');
 const app = express();
 
 // Calling function from routes/<file>.js file
-
-const {addPostPage, getAddPostPage} = require('./routes/addpost');
+const {getMainPage, getMainDate, getMainPrice} = require('./routes/index');
+const {getLogin} = require('./routes/login');
+const {getUsers} = require('./routes/users');
+const {addPostPage, getAddPostPage, deletePost} = require('./routes/post');
+const {getPostPage} = require('./routes/products.js');
 
 // const {addPlayerPage, addPlayer, deletePlayer, editPlayer, editPlayerPage} = require('./routes/player');
 const port = 5000;
@@ -19,6 +22,8 @@ const port = 5000;
 const db = mysql.createConnection ({
     host: 'localhost',
     user: 'root',
+    password: 'nickjon20',
+    database: 'MarketDB'
 });
 
 db.connect((err) => {
@@ -44,11 +49,15 @@ app.get('/date', getMainDate);
 app.get('/price', getMainPrice);
 app.get('/login', getLogin);
 app.get('/users', getUsers);
-app.get('/see_post', getPostPage);
 app.post('/add_post', addPostPage);
-app.get('/add_post', getAddPostPage
+app.get('/see_post', getPostPage);
+app.get('/add_post', getAddPostPage);
+app.get('/delete/:postid', deletePost);
+
+/*
 app.get('/productpost/edit:uid', editPostPage);
 app.get('/productpost/delete:uid', deletePostPage);
+app.post('/add_post', addPost);     //require products.js
 app.post('/add_user', addUser);    //require users.js
 app.post('/add_seller', addSeller);    //require users.js?
 */

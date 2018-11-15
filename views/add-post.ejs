@@ -1,6 +1,29 @@
-<%# table view of all users %>
 <% include partials/header.ejs %>
 <div class="container">
-    <p class="text-center text-danger"><%= postid %></p>
-</div>
+  <form class="add-post-form" action="" method="post" enctype="multipart/form-data">
+    <div class="form-row">
+      <div class ="form-group col-md-4">
+        <p> User ID: </p>
+        <input type="text" class="form-control" name="post_by_id" id="post-by-id" placeholder="UserID" required>
+      </div>
+      <div class ="form-group col-md-6">
+        <p> Product Name: </p>
+        <input type="text" class="form-control" name="product_name" id="product-name" placeholder="Insert product name" required>
+      </div>
+      <div class ="form-group col-md-10">
+        <p> Product Description: </p>
+        <input type="text" class="form-control" name="product_description" id="product-description" placeholder="Provide a short description of your product" required>
+      </div>
+      <div class ="form-group col-md-6">
+        <p> Post Date: </p>
+        <input type="text" class="form-control" name="post_date" id="post-date" placeholder="YYYY-DD-MM" required>
+      </div>
+      <div class ="form-group col-md-10">
+        <p> Price: </p>
+        <input type="text" class="form-control" name="price" id="price" placeholder="State your price" required>
+      </div>
+      <button type="submit" class="btn btn-primary float-right"> Add New Post</button>
+  </form>
+<div>
+</body>
 </html>
