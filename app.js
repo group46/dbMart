@@ -15,15 +15,16 @@ const {getAddPost} = require('./routes/addposts')
 const {getPostPage} = require('./routes/products')
 const {getPriceRange ,getPriceTable} = require('./routes/popq')
 
-// const {addPlayerPage, addPlayer, deletePlayer, editPlayer, editPlayerPage} = require('./routes/player');
+const {getProductComments} = require('./routes/seepost')
+
 const port = 5000;
 
 // create connection to database
 // mysql.createConnection takes in a configuration object which contains host, user, password and the database name.
 const db = mysql.createConnection ({
     host: 'localhost',
-    user: 'ginahong',
-    password: 'ghdatabase',
+    user: 'root',
+    password: 'HelloWorld1001',
     database: 'marketdb'
 });
 
@@ -54,7 +55,6 @@ app.get('/users', getUsers);
 app.get('/getacccreate', getAccCreatePage);
 app.post('/getacccreate', insertUser);
 app.get('/add_post', getAddPost);
-app.get('/see_post', getPostPage);
 
 app.get('/pop_q/chooseprice', getPriceRange); // gh
 app.post('/pop_q/chooseprice', getPriceTable); // gh
@@ -69,6 +69,9 @@ app.post('/add_post', addPost);     //require products.js
 app.post('/add_user', addUser);    //require users.js
 app.post('/add_seller', addSeller);    //require users.js?
 */
+
+app.get('/see_post/:postid', getProductComments);
+
 //Show separate list for buyers and sellers
 app.get('/users/buyers/', getBuyers);
 app.get('/users/sellers', getSellers);
