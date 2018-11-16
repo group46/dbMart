@@ -8,19 +8,13 @@ INSERT INTO user
 VALUES ('u2', 'Boat', 'Mcboat', 'p2', '2007-01-03');
 INSERT INTO buyer
 VALUES ('u2', 'Boat', 'Mcboat', 'p2', '2007-01-03');
-INSERT INTO seller
-VALUES ('u2', 'Boat', 'Mcboat', 'p2', '2007-01-03');
 
 INSERT INTO user
-VALUES ('u3', 'Tony', 'Stark', 'p3', '1971-09-23');
-INSERT INTO seller
 VALUES ('u3', 'Tony', 'Stark', 'p3', '1971-09-23');
 INSERT INTO buyer
 VALUES ('u3', 'Tony', 'Stark', 'p3', '1971-09-23');
 
 INSERT INTO user
-VALUES ('u4', 'Steph', 'Curry', 'p4', '1988-05-03');
-INSERT INTO seller
 VALUES ('u4', 'Steph', 'Curry', 'p4', '1988-05-03');
 INSERT INTO buyer
 VALUES ('u4', 'Steph', 'Curry', 'p4', '1988-05-03');
@@ -51,21 +45,27 @@ VALUES ('4', 'ad_img4', 'boat shop');
 
 
 -- 4 product posts.
+INSERT INTO seller
+VALUES ('u2', 'Boat', 'Mcboat', 'p2', '2007-01-03');
 INSERT INTO product_posts
 VALUES ('1', 'u2', 'Beautiful boats with amenities inside. Looking to sell quick',
-'Mcboatface Boat', '2018-11-08', 1899, 0);
+'Mcboatface Boat', '2017-11-08', 1899, 0);
 
+INSERT INTO seller
+VALUES ('u3', 'Tony', 'Stark', 'p3', '1971-09-23');
 INSERT INTO product_posts
 VALUES ('2', 'u3', 'utilitiarian metal suit being sold for a bargain. broken during fight w/ friends. obo',
-'ironman mkV', '2018-11-11', 1000, 0);
+'Ironman MK V', '2018-09-24', 1000, 0);
 
 INSERT INTO product_posts
 VALUES ('4', 'u3', 'red, white, and blue metal disc. Good for frisbee. Slightly damaged',
-'used frisbee', '2018-11-11', 10, 0);
+'Used frisbee', '2018-11-11', 10, 0);
 
+INSERT INTO seller
+VALUES ('u4', 'Steph', 'Curry', 'p4', '1988-05-03');
 INSERT INTO product_posts
 VALUES ('3', 'u4', 'Increase your range with these curry 4s',
-'Curry 4s', '2017-09-28', 299, 0);
+'Curry 4', '2018-09-28', 299, 0);
 
 
 -- 4 tags: sports, electronic, boat, used
@@ -158,7 +158,6 @@ VALUES ( '6', '2', 'u3', 'No its been sold.', '2018-11-10', 0);
 
 INSERT INTO comment_authors
 VALUES ( '2', '4', 'u6', 'Willing to trade?', '2018-11-04', 1);
-
 
 -- 1 transaction_buys
 INSERT INTO transaction_buys
