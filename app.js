@@ -9,12 +9,10 @@ const app = express();
 
 const {getLogin, gotoSettings} = require('./routes/login');
 const {getMainPage, getMainDate, getMainPrice, getAccCreatePage} = require('./routes/index');
-
 const {getUsers, getBuyers, getSellers, insertUser, insertSeller} = require('./routes/users');
-const {getAddPost} = require('./routes/addposts')
+const {addPostPage, getAddPostPage, deletePost} = require('./routes/post');
 const {getPostPage} = require('./routes/products')
 const {getPriceRange ,getPriceTable} = require('./routes/popq')
-
 const {getProductComments} = require('./routes/seepost')
 
 const port = 5000;
@@ -51,19 +49,17 @@ app.get('/date', getMainDate);
 app.get('/price', getMainPrice);
 app.get('/login', getLogin);
 app.get('/users', getUsers);
-//takes you to createAcc page
-app.post('/acc-settings', gotoSettings)
+
 app.get('/getacccreate', getAccCreatePage);
 app.post('/getacccreate', insertUser);
-app.get('/add_post', getAddPost);
 
-app.get('/pop_q/chooseprice', getPriceRange); // gh
-app.post('/pop_q/chooseprice', getPriceTable); // gh
+app.get('/see_post', getPostPage);
+app.get('/add_post', getAddPostPage);
+app.post('/add_post', addPostPage);
+app.get('/delete/:postid', deletePost);
+app.post('/acc-settings', gotoSettings)
 
-// app.get('/pop_q/tag', getTagUser);
-// app.get('/pop_q/comments', getUserComments);
 /*
-app.get('/productpost:postid', getPostPage);
 app.get('/productpost/edit:uid', editPostPage);
 app.get('/productpost/delete:uid', deletePostPage);
 app.post('/add_post', addPost);     //require products.js
