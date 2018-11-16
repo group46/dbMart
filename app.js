@@ -7,8 +7,8 @@ const mysql = require('mysql');
 const path = require('path');
 const app = express();
 
+const {getLogin, gotoSettings} = require('./routes/login');
 const {getMainPage, getMainDate, getMainPrice, getAccCreatePage} = require('./routes/index');
-const {getLogin} = require('./routes/login');
 
 const {getUsers, getBuyers, getSellers, insertUser, insertSeller} = require('./routes/users');
 const {getAddPost} = require('./routes/addposts')
@@ -24,7 +24,7 @@ const port = 5000;
 const db = mysql.createConnection ({
     host: 'localhost',
     user: 'root',
-    password: 'HelloWorld1001',
+    password: 'password1',
     database: 'marketdb'
 });
 
@@ -52,6 +52,7 @@ app.get('/price', getMainPrice);
 app.get('/login', getLogin);
 app.get('/users', getUsers);
 //takes you to createAcc page
+app.post('/acc-settings', gotoSettings)
 app.get('/getacccreate', getAccCreatePage);
 app.post('/getacccreate', insertUser);
 app.get('/add_post', getAddPost);
