@@ -14,6 +14,29 @@ module.exports = {
         });
     },
 
+    getSingleUser: (req, res) => {
+        let userid = req.body.userid
+        let pass = req.body.password
+        let nameQuery = "SELECT * FROM 'user' AS u WHERE u.uid = '" + uid + "'"
+
+        db.query(nameQuery, (err, result) => {
+          if (err) {
+            console.log(err)
+          }
+          if (result.length = 0) {
+                  res.redirect('/add-acc')
+          } else {
+            let query = "SELECT uid, first_name, last_name, password, DATE_FORMAT(`birthdate`, '%Y-%m-%d') AS birthdate FROM `user` WHERE (uid = '" + userid + "' AND password = '" + pass + "')"
+            db.query(query, (err,result1) => {
+              if (err) {
+                console.log(err)
+              }
+              //else should just return single user
+            })
+        }
+      })
+    },
+
     getBuyers: (req, res) => {
       let query = "SELECT uid, first_name, last_name, DATE_FORMAT(`birthdate`, '%Y-%m-%d') AS birthdate FROM `buyer` ORDER BY first_name DESC"
       db.query(query, (err, result) => {

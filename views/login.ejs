@@ -2,14 +2,14 @@
 <% include partials/header.ejs %>
 
 <h1>Login</h1>
-<form method="post" action="loginacct">
+<form method="post" action="acc-settings">
   <p>
     <label>Username:</label>
-    <input type="text" name="username">
+    <input type="text" name="username" required>
   </p>
   <p>
     <label>Password:</label>
-    <input type="text" name="password">
+    <input type="text" name="password" required>
   </p>
   <p>
     <input type="submit" value="Login">
