@@ -1,0 +1,39 @@
+<% include partials/header.ejs %>
+
+<div class="row">
+    <div class="col">
+        <div class="table">
+            <% if (posts.length > 0) {%>
+                <table class="table table-hovered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">User</th>
+                            <th scope="col">Timestamp</th>
+                            <th scope="col">Comment</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% posts.forEach((post, index) => { %>
+                            <tr>
+                                <th scope="row"><%= post.uid %></th>
+                                <!-- <td><img src="/assets/img/<%= post.image %>" class="rounded-circle post-img" alt=""></td> -->
+                                <td><%= post.commentdate %></td>
+                                <td><%= post.commenttxt %></td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            <% } else { %>
+                <p class="text-center">No comments found! Be the first one to comment!</p>
+            <% } %>
+
+
+
+
+            <div class="align-middle">
+                <a href="/add_post" class="btn btn-sm btn-info">Add Comment</a>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

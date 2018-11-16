@@ -43,7 +43,7 @@ module.exports = {
             });
         });
     },
-    getAccCreate: (req, res) => {
+    getAccCreatePage: (req, res) => {
       let query = "SELECT postid, uid, product_name, product_description, DATE_FORMAT(`post_date`, '%Y-%m-%d') AS post_date, price, sold, CASE WHEN sold='1' THEN 'true' ELSE 'false' END AS sold FROM `product_posts` ORDER BY post_date DESC"; // get all posts and order by asc post date
 
       // query executed

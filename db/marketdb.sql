@@ -4,8 +4,8 @@
 -- Aleksei Feklisov y8v0b
 -- Maximilian Was-Damji n6g1b
 
-CREATE DATABASE IF NOT EXISTS MarketDB;
-USE MarketDB;
+CREATE DATABASE IF NOT EXISTS marketdb;
+USE marketdb;
 
 -- DROP TABLE IF EXISTS post_likes;
 DROP TABLE IF EXISTS transaction_buys;
@@ -14,10 +14,10 @@ DROP TABLE IF EXISTS product_photo;
 -- DROP TABLE IF EXISTS uses;
 DROP TABLE IF EXISTS ad_has_tag;
 DROP TABLE IF EXISTS post_has_tag;
-DROP TABLE IF EXISTS tag;
 DROP TABLE IF EXISTS user_likes;
 DROP TABLE IF EXISTS advertisement;
 DROP TABLE IF EXISTS product_posts;
+DROP TABLE IF EXISTS tag;
 DROP TABLE IF EXISTS seller;
 DROP TABLE IF EXISTS buyer;
 DROP TABLE IF EXISTS user;
@@ -173,4 +173,3 @@ CREATE TABLE user_likes (
     FOREIGN KEY (postid) REFERENCES product_posts (postid)
             ON DELETE CASCADE
 );
-

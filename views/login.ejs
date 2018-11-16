@@ -2,21 +2,17 @@
 <% include partials/header.ejs %>
 
 <h1>Login</h1>
-<form method="post" action="loginacct">
+<form method="post" action="acc-settings">
   <p>
     <label>Username:</label>
-    <input type="text" name="username">
+    <input type="text" name="username" required>
   </p>
   <p>
     <label>Password:</label>
-    <input type="text" name="password">
+    <input type="text" name="password" required>
   </p>
   <p>
-    <input type="submit" value="Login">
+    <input type="submit" value="login">
   </p>
 </form>
-<form method='post' action="createacc">
-  <p>
-    <input type='submit' value='Create Account'>
-  </p>
-</form>
+<a href="/getacccreate" class="btn btn-sm btn-primary">Create Account</a>

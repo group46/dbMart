@@ -7,17 +7,14 @@ const mysql = require('mysql');
 const path = require('path');
 const app = express();
 
-// Calling function from routes/<file>.js file
-const {getMainPage, getMainDate, getMainPrice, getAccCreate} = require('./routes/index');
-const {getLogin} = require('./routes/login');
-const {getUsers, getBuyers, getSellers, insertBuyer, insertSeller} = require('./routes/users');
+const {getLogin, gotoSettings} = require('./routes/login');
+const {getMainPage, getMainDate, getMainPrice, getAccCreatePage} = require('./routes/index');
+const {getUsers, getBuyers, getSellers, insertUser, insertSeller} = require('./routes/users');
 const {addPostPage, getAddPostPage, deletePost} = require('./routes/post');
-const {getPostPage} = require('./routes/products.js');
+const {getPostPage} = require('./routes/products')
 const {getPriceRange ,getPriceTable} = require('./routes/popq')
+const {getProductComments} = require('./routes/seepost')
 
-
-
-// const {addPlayerPage, addPlayer, deletePlayer, editPlayer, editPlayerPage} = require('./routes/player');
 const port = 5000;
 
 // create connection to database
@@ -25,8 +22,8 @@ const port = 5000;
 const db = mysql.createConnection ({
     host: 'localhost',
     user: 'root',
-    password: 'nickjon20',
-    database: 'MarketDB'
+    password: 'password1',
+    database: 'marketdb'
 });
 
 db.connect((err) => {
@@ -52,10 +49,15 @@ app.get('/date', getMainDate);
 app.get('/price', getMainPrice);
 app.get('/login', getLogin);
 app.get('/users', getUsers);
-app.post('/add_post', addPostPage);
+
+app.get('/getacccreate', getAccCreatePage);
+app.post('/getacccreate', insertUser);
+
 app.get('/see_post', getPostPage);
 app.get('/add_post', getAddPostPage);
+app.post('/add_post', addPostPage);
 app.get('/delete/:postid', deletePost);
+app.post('/acc-settings', gotoSettings)
 
 /*
 app.get('/productpost/edit:uid', editPostPage);
@@ -64,13 +66,16 @@ app.post('/add_post', addPost);     //require products.js
 app.post('/add_user', addUser);    //require users.js
 app.post('/add_seller', addSeller);    //require users.js?
 */
+
+app.get('/see_post/:postid', getProductComments);
+
 //Show separate list for buyers and sellers
-app.get('/users/buyers/', getBuyers)
-app.get('/users/sellers', getSellers)
+app.get('/users/buyers/', getBuyers);
+app.get('/users/sellers', getSellers);
 
 //If user sells a thing, he joins buyers list, if he purchases a thing, he joins sellers list
-app.post('/makepost-buy', insertBuyer)
-app.post('/makepurchase', insertSeller)
+// app.post('/makepost-buy', insertUser);
+app.post('/makepurchase', insertSeller);
 //Create an account given information about user
 //app.post('createaccdone', createAcc)
 
