@@ -8,7 +8,7 @@ const path = require('path');
 const app = express();
 
 const {getMainPage, getMainDate, getMainPrice, getAccCreate} = require('./routes/index');
-const {getLogin, gotoSettings} = require('./routes/login');
+const {getLogin, gotoSettings,updateUser} = require('./routes/login');
 
 const {getUsers, getBuyers, getSellers, insertBuyer, insertSeller} = require('./routes/users');
 const {getAddPost} = require('./routes/addposts')
@@ -52,7 +52,8 @@ app.get('/login', getLogin);
 app.get('/users', getUsers);
 //takes you to createAcc page
 app.post('/createacc', getAccCreate);
-app.post('/acc-settings', gotoSettings)
+app.post('/acc-settings', gotoSettings);
+app.post('/update', updateUser);
 app.get('/add_post', getAddPost);
 app.get('/see_post', getPostPage);
 

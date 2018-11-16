@@ -16,25 +16,31 @@ module.exports = {
         });
     },
 
-    gotoSettings: (req,res,getSingleUser) => {
+    gotoSettings: (req,res) => {
+      console.log(req.body)
+      let userid = req.body.username
+      let pass = req.body.password
+      let nameQuery = "SELECT * FROM `user` AS u WHERE (u.uid = '" + userid + "' AND u.password = '" + pass + "')"
 
-      var userid = req.body.username
-      var pass = req.body.password
-      let nameQuery = "SELECT * FROM `user` WHERE (uid = '" + userid + "' AND password = '" + pass +"')"
-
-      db.query(nameQuery, (err, res) => {
+      db.query(nameQuery, (err, res1) => {
         if (err) {
-          console.log("error at query1")
           console.log(err)
         }
-        if (res.length = 0) {
+        if (res1.length = 0) {
                 res.redirect('/add-acc')
+        } else {
+          console.log(res1)
+          res.render('acc-settings.ejs', {
+            title: "DBMart | Account Settings"
+            , user: res1
+            , message: "Settings"
+          })
         }
+
       })
-      res.render('acc-settings.ejs', {
-        title: "DBMart | Account Settings"
-        , user: res
-        , message: "Settings"
-      })
+    },
+
+    updateUser: (req,res) => {
+      
     }
 }
