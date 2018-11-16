@@ -25,7 +25,8 @@ const db = mysql.createConnection ({
     host: 'localhost',
     user: 'root',
     password: 'HelloWorld1001',
-    database: 'marketdb'
+    database: 'marketdb',
+    multipleStatements : true
 });
 
 db.connect((err) => {
