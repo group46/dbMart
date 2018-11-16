@@ -3,20 +3,44 @@
 <div class="row">
     <div class="col">
         <div class="table">
-            <% if (posts.length > 0) {%>
+
+          <% if (postTwo.length > 0) {%>
+              <table class="table table-hovered">
+                  <thead class="thead-dark">
+                      <tr>
+                          <th scope="col">Product Name</th>
+                          <th scope="col">Timestamp</th>
+                          <th scope="col">Description</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <% postTwo.forEach((post, index) => { %>
+                          <tr>
+                              <td><%= post.product_name %></td>
+                              <td><%= post.post_date %></td>
+                              <td><%= post.product_description %></td>
+                          </tr>
+                      <% }) %>
+                  </tbody>
+              </table>
+          <% } else { %>
+              <p class="text-center">No comments found! Be the first one to comment!</p>
+          <% } %>
+
+
+            <% if (postOne.length > 0) {%>
                 <table class="table table-hovered">
                     <thead class="thead-dark">
                         <tr>
-                            <th scope="col">User</th>
+                            <th scope="col">Firstname & Lastname</th>
                             <th scope="col">Timestamp</th>
                             <th scope="col">Comment</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <% posts.forEach((post, index) => { %>
+                        <% postOne.forEach((post, index) => { %>
                             <tr>
-                                <th scope="row"><%= post.uid %></th>
-                                <!-- <td><img src="/assets/img/<%= post.image %>" class="rounded-circle post-img" alt=""></td> -->
+                                <td><%= post.name %></td>
                                 <td><%= post.commentdate %></td>
                                 <td><%= post.commenttxt %></td>
                             </tr>
@@ -26,9 +50,6 @@
             <% } else { %>
                 <p class="text-center">No comments found! Be the first one to comment!</p>
             <% } %>
-
-
-
 
             <div class="align-middle">
                 <a href="/add_post" class="btn btn-sm btn-info">Add Comment</a>
