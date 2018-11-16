@@ -7,15 +7,16 @@ const mysql = require('mysql');
 const path = require('path');
 const app = express();
 
-const {getMainPage, getMainDate, getMainPrice, getAccCreate} = require('./routes/index');
 const {getLogin, gotoSettings} = require('./routes/login');
+const {getMainPage, getMainDate, getMainPrice, getAccCreatePage} = require('./routes/index');
 
-const {getUsers, getBuyers, getSellers, insertBuyer, insertSeller} = require('./routes/users');
+const {getUsers, getBuyers, getSellers, insertUser, insertSeller} = require('./routes/users');
 const {getAddPost} = require('./routes/addposts')
 const {getPostPage} = require('./routes/products')
 const {getPriceRange ,getPriceTable} = require('./routes/popq')
 
-// const {addPlayerPage, addPlayer, deletePlayer, editPlayer, editPlayerPage} = require('./routes/player');
+const {getProductComments} = require('./routes/seepost')
+
 const port = 5000;
 
 // create connection to database
@@ -51,10 +52,10 @@ app.get('/price', getMainPrice);
 app.get('/login', getLogin);
 app.get('/users', getUsers);
 //takes you to createAcc page
-app.post('/createacc', getAccCreate);
 app.post('/acc-settings', gotoSettings)
+app.get('/getacccreate', getAccCreatePage);
+app.post('/getacccreate', insertUser);
 app.get('/add_post', getAddPost);
-app.get('/see_post', getPostPage);
 
 app.get('/pop_q/chooseprice', getPriceRange); // gh
 app.post('/pop_q/chooseprice', getPriceTable); // gh
@@ -69,13 +70,16 @@ app.post('/add_post', addPost);     //require products.js
 app.post('/add_user', addUser);    //require users.js
 app.post('/add_seller', addSeller);    //require users.js?
 */
+
+app.get('/see_post/:postid', getProductComments);
+
 //Show separate list for buyers and sellers
-app.get('/users/buyers/', getBuyers)
-app.get('/users/sellers', getSellers)
+app.get('/users/buyers/', getBuyers);
+app.get('/users/sellers', getSellers);
 
 //If user sells a thing, he joins buyers list, if he purchases a thing, he joins sellers list
-app.post('/makepost-buy', insertBuyer)
-app.post('/makepurchase', insertSeller)
+// app.post('/makepost-buy', insertUser);
+app.post('/makepurchase', insertSeller);
 //Create an account given information about user
 //app.post('createaccdone', createAcc)
 
