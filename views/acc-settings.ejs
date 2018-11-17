@@ -5,56 +5,54 @@
     <% } %>
 
     <% if (user) { %>
-        <form>
+        <form method="post" action="update" enctype="multipart/form-data">
           <div class="form-group row">
             <div class="form-group col">
               <!-- first column where you can see current values-->
-              <label for="userID" class="col-sm-6 col-form-label">Current userID</label>
+              <label for="userID" class="col-sm-6 col-form-label">Current userID: </label>
               <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="userID" value="<%= user.uid %>">
+                <input type="text" readonly class="form-control-plaintext" id="userID" name="userid" value="<%= user.uid %>">
               </div>
 
-              <label for="fname" class="col-sm-6 col-form-label">Current first name</label>
+              <label for="fname" class="col-sm-6 col-form-label">Current first name: </label>
               <div class="col-sm-10">
                 <input type="text" readonly class="form-control-plaintext" id="fname" value="<%= user.first_name %>">
               </div>
 
-              <label for="lname" class="col-sm-6 col-form-label">Current last name</label>
+              <label for="lname" class="col-sm-6 col-form-label">Current last name: </label>
               <div class="col-sm-10">
                 <input type="text" readonly class="form-control-plaintext" id="lname" value="<%= user.last_name %>">
               </div>
 
-              <label for="password" class="col-sm-6 col-form-label">Current password</label>
+              <label for="password" class="col-sm-6 col-form-label">Current password: </label>
               <div class="col-sm-10">
                 <input type="text" readonly class="form-control-plaintext" id="password" value="<%= user.password %>">
               </div>
 
-              <label for="birthdate" class="col-sm-6 col-form-label">Current birthdate</label>
+              <label for="birthdate" class="col-sm-6 col-form-label">Current birthdate: </label>
               <div class="col-sm-10">
                 <input type="text" readonly class="form-control-plaintext" id="birthdate" value="<%= user.birthdate %>">
               </div>
 
             </div>
-            <form method="post" action="/update">
-              <div class="form-group col"
+            <div class="form-group col">
               <!-- second column where you can change settings-->
               <label for="inputID">Can't change userID</label>
-              <input type="userID" class="form-control" id="inputID" disabled placeholder="userID">
+              <input type="text" class="form-control" id="inputID" name="nid" disabled value="<%= user.uid %>">
 
               <label for="inputFname">New first name</label>
-              <input type="fname" class="form-control" id="inputFname" required placeholder="John">
+              <input type="text" class="form-control" id="inputFname" name="nfname" required placeholder="John">
 
               <label for="inputLname">New last name</label>
-              <input type="lname" class="form-control" id="inputLname" required placeholder="Doe">
+              <input type="text" class="form-control" id="inputLname" name="nlname" required placeholder="Doe">
 
               <label for="inputPass">New password</label>
-              <input type="pass" class="form-control" id="inputPass" required placeholder="password">
+              <input type="text" class="form-control" id="inputPass" name="npass" required placeholder="password">
 
               <label for="inputDate">New birthdate</label>
-              <input type="date" class="form-control" id="inputDate" required placeholder="Y-M-D">
-              <button type="submit" class="btn btn-primary">Update!</button>
-              </div>
-            </form>
+              <input type="date" class="form-control" id="inputDate" name="ndate" required placeholder="Y-M-D">
+            </div>
+            <input type="submit" class="btn btn-primary" value="Update!">
           </div>
         </form>
     <% } else { %>

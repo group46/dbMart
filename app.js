@@ -7,11 +7,13 @@ const mysql = require('mysql');
 const path = require('path');
 const app = express();
 
-const {getLogin, gotoSettings} = require('./routes/login');
+
+const {getLogin, gotoSettings,updateUser} = require('./routes/login');
 const {getMainPage, getMainDate, getMainPrice, getMainLikes, getAccCreatePage} = require('./routes/index');
-const {getUsers, getBuyers, getSellers, insertUser, insertSeller} = require('./routes/users');
+
+const {getUsers, insertUser} = require('./routes/users');
 const {addPostPage, getAddPostPage, editPost, editPostPage, deletePostPopUp, deletePost} = require('./routes/post');
-const {getPostPage} = require('./routes/products')
+const {getPostPage, soldUpdate} = require('./routes/products')
 const {getPriceRange ,getPriceTable} = require('./routes/popq')
 const {getProductComments} = require('./routes/seepost')
 
@@ -56,6 +58,7 @@ app.get('/login', getLogin); // Go to LOGIN page
 
 app.get('/users', getUsers); // Go to USERS page
 app.post('/acc-settings', gotoSettings); // EDIT a user (get here by logging in)
+app.post('/update', updateUser); // UPDATE user info
 app.get('/getacccreate', getAccCreatePage); // Go to ACC CREATE page
 app.post('/getacccreate', insertUser); // INSERT user
 
@@ -67,6 +70,7 @@ app.get('/deletepopup/:postid', deletePostPopUp); // DELETE a certain post
 app.post('/deletepopup/:postid', deletePost); // DELETE a certain post
 app.get('/edit/:postid', editPostPage);
 app.post('/edit/:postid', editPost);
+app.post('/sold:postid', soldUpdate); //Update the post to sold, once transaction occurs
 
 // POPULAR QUERIES
 app.get('/pop_q/chooseprice', getPriceRange); // Products in price range feature
