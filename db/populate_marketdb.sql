@@ -1,32 +1,20 @@
 -- insert 6 users: u1 to u6. u2, u3, u4 are both buyer AND seller
 INSERT INTO user
 VALUES ('u1', 'Gina', 'Hong', 'p1', '1997-11-03');
-INSERT INTO buyer
-VALUES ('u1', 'Gina', 'Hong', 'p1', '1997-11-03');
 
 INSERT INTO user
-VALUES ('u2', 'Boat', 'Mcboat', 'p2', '2007-01-03');
-INSERT INTO buyer
 VALUES ('u2', 'Boat', 'Mcboat', 'p2', '2007-01-03');
 
 INSERT INTO user
 VALUES ('u3', 'Tony', 'Stark', 'p3', '1971-09-23');
-INSERT INTO buyer
-VALUES ('u3', 'Tony', 'Stark', 'p3', '1971-09-23');
 
 INSERT INTO user
-VALUES ('u4', 'Steph', 'Curry', 'p4', '1988-05-03');
-INSERT INTO buyer
 VALUES ('u4', 'Steph', 'Curry', 'p4', '1988-05-03');
 
 INSERT INTO user
 VALUES ('u5', 'Kevin', 'Durant', 'p5', '1989-01-13');
-INSERT INTO buyer
-VALUES ('u5', 'Kevin', 'Durant', 'p5', '1989-01-13');
 
 INSERT INTO user
-VALUES ('u6', 'John', 'Mayer', 'p6', '1977-09-10');
-INSERT INTO buyer
 VALUES ('u6', 'John', 'Mayer', 'p6', '1977-09-10');
 
 
@@ -45,14 +33,10 @@ VALUES ('4', 'ad_img4', 'boat shop');
 
 
 -- 4 product posts.
-INSERT INTO seller
-VALUES ('u2', 'Boat', 'Mcboat', 'p2', '2007-01-03');
 INSERT INTO product_posts
 VALUES ('1', 'u2', 'Beautiful boats with amenities inside. Looking to sell quick',
 'Mcboatface Boat', '2017-11-08', 1899, 0);
 
-INSERT INTO seller
-VALUES ('u3', 'Tony', 'Stark', 'p3', '1971-09-23');
 INSERT INTO product_posts
 VALUES ('2', 'u3', 'utilitiarian metal suit being sold for a bargain. broken during fight w/ friends. obo',
 'Ironman MK V', '2018-09-24', 1000, 0);
@@ -61,11 +45,13 @@ INSERT INTO product_posts
 VALUES ('4', 'u3', 'red, white, and blue metal disc. Good for frisbee. Slightly damaged',
 'Used frisbee', '2018-11-11', 10, 0);
 
-INSERT INTO seller
-VALUES ('u4', 'Steph', 'Curry', 'p4', '1988-05-03');
 INSERT INTO product_posts
 VALUES ('3', 'u4', 'Increase your range with these curry 4s',
 'Curry 4', '2018-09-28', 299, 0);
+
+INSERT INTO product_posts
+VALUES ('5', 'u4', 'Latest Steph Curry shoes to drop. Great for point guards!',
+'Curry 5s', '2018-11-13', 310, 0);
 
 
 -- 4 tags: sports, electronic, boat, used
@@ -174,6 +160,7 @@ FROM user;
 
 -- test queries to check
 select * from user;
+select uid as "seller" from product_posts;
 select * from advertisement a, ad_has_tag at where a.adid=at.adid;
 select * from tag;
 select * from product_posts p, post_has_tag pt where p.postid=pt.postid;
