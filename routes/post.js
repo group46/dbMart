@@ -12,8 +12,6 @@ module.exports = {
 
 
   addPostPage: (req, res) => {
-    console.log('line 13 reached');
-    // res.send("respond 2") <-- the bane of my existence
     let newpostid = '';
     let post_by_id = req.body.post_by_id;
     let product_name = req.body.product_name;
@@ -36,7 +34,8 @@ module.exports = {
     // let sold = 0; automatically false
 
     let postidquery = "SELECT * FROM product_posts";
-    let currentpostid = "SELECT uid FROM user WHERE uid='" + post_by_id + "'";
+    // console.log(post_by_id);
+    let currentpostid = "SELECT uid FROM user WHERE uid = '" + post_by_id + "'";
 
     db.query(postidquery, (err, result1) => {
       if (err) {
@@ -53,11 +52,11 @@ module.exports = {
             return res.status(500).send(err);
             console.log("cannot get list of users");
           }
+          console.log(result2);
           // if account doesn't exist, pls create account
           if (result2.length != 1) { // if no results
-            // if post_by_id is inside result2 array, return positive number
             message = "User does not exist. Create a new account."
-            console.log("user does not exist. create a new account");
+            // console.log("user does not exist. create a new account");
             console.log(result2.length)
             res.render('add-acc.ejs', {
                 title: "DBMart | Account Creation",
@@ -80,6 +79,42 @@ module.exports = {
     });
   },
 
+  editPostPage: (req, res) => {
+    let post_id = req.params.postid;
+    let query = "SELECT * FROM product_posts WHERE postid = '" + post_id + "'";
+
+    db.query(query, (err, result) => {
+      if (err) {
+        return res.status(500).send(err);
+      }
+      else {
+        res.render('edit-post.ejs', {
+          title: "DB Mart | Edit Post",
+          message: '',
+        });
+      }
+    });
+  },
+
+  editPost: (req, res) => {
+    let post_id = req.params.postid;
+    let product_name = req.body.product_name;
+    let product_description = req.body.product_description;
+    let price = req.body.price;
+
+    let editquery = "UPDATE product_posts SET product_name = '" + product_name + "', `product_description` = '" + product_description + "', `price` = '" + price + "' WHERE postid = '" + post_id + "'";
+    // let editquery = "SELECT * FROM product_posts WHERE postid = '" + post_id + "'";
+    db.query(editquery, (err, result) => {
+      if (err) {
+        return res.status(500).send(err);
+        console.log("errday")
+      }
+      else
+        res.redirect('/');
+    });
+
+  },
+
 
 
   deletePost: (req, res)=> {
@@ -92,7 +127,7 @@ module.exports = {
         return res.status(500).send(err);
         console.log("not");
       }
-      // if problem retrieving postID, then delete post
+      // if no problem retrieving postID, then delete post
       else {
         db.query(deletePostQuery, (err, result) => {
           if (err) {
