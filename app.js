@@ -64,7 +64,7 @@ app.get('/add_post', getAddPostPage); // Go to CREATE POST page
 app.post('/add_post', addPostPage); // INSERT product_post
 app.get('/delete/:postid', deletePost); // DELETE a certain post
 app.get('/edit/:postid', editPostPage);
-app.get('/edit/:postid', editPost);
+app.post('/edit/:postid', editPost);
 
 // POPULAR QUERIES
 app.get('/pop_q/chooseprice', getPriceRange); // Products in price range feature
