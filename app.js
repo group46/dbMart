@@ -7,12 +7,12 @@ const mysql = require('mysql');
 const path = require('path');
 const app = express();
 
-const {getLogin, gotoSettings} = require('./routes/login');
+const {getLogin, gotoSettings,updateUser} = require('./routes/login');
 const {getMainPage, getMainDate, getMainPrice, getAccCreatePage} = require('./routes/index');
 
 const {getUsers, getBuyers, getSellers, insertUser, insertSeller} = require('./routes/users');
 const {getAddPost} = require('./routes/addposts')
-const {getPostPage} = require('./routes/products')
+const {getPostPage, soldUpdate} = require('./routes/products')
 const {getPriceRange ,getPriceTable} = require('./routes/popq')
 
 const {getProductComments} = require('./routes/seepost')
@@ -45,17 +45,27 @@ app.use(express.static(path.join(__dirname, 'public'))) // conf express to use t
 app.use(fileUpload()); // configure fileUpload
 
 // routes for the app
-
+//General pages:
 app.get('/', getMainPage);
 app.get('/date', getMainDate);
 app.get('/price', getMainPrice);
 app.get('/login', getLogin);
 app.get('/users', getUsers);
-//takes you to createAcc page
-app.post('/acc-settings', gotoSettings)
+//Show separate list for buyers and sellers
+app.get('/users/buyers/', getBuyers);
+app.get('/users/sellers', getSellers);
+
+//User account related:
+app.post('/acc-settings', gotoSettings);
+app.post('/update', updateUser);
 app.get('/getacccreate', getAccCreatePage);
 app.post('/getacccreate', insertUser);
+
+//Product post related
 app.get('/add_post', getAddPost);
+app.get('/see_post/:postid', getProductComments);
+//Update the post to sold, once transaction occurs
+app.post('/sold:postid', soldUpdate)
 
 app.get('/pop_q/chooseprice', getPriceRange); // gh
 app.post('/pop_q/chooseprice', getPriceTable); // gh
@@ -71,23 +81,9 @@ app.post('/add_user', addUser);    //require users.js
 app.post('/add_seller', addSeller);    //require users.js?
 */
 
-app.get('/see_post/:postid', getProductComments);
-
-//Show separate list for buyers and sellers
-app.get('/users/buyers/', getBuyers);
-app.get('/users/sellers', getSellers);
-
 //If user sells a thing, he joins buyers list, if he purchases a thing, he joins sellers list
 // app.post('/makepost-buy', insertUser);
 app.post('/makepurchase', insertSeller);
-//Create an account given information about user
-//app.post('createaccdone', createAcc)
-
-//Update info of users
-//app.post('/accinfo', updateUserInfo)
-
-//Update the post to sold, once transaction occurs
-//app.post('/transactionsuccessful', soldUpdate)
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
