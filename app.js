@@ -8,7 +8,7 @@ const path = require('path');
 const app = express();
 
 const {getLogin, gotoSettings} = require('./routes/login');
-const {getMainPage, getMainDate, getMainPrice, getAccCreatePage} = require('./routes/index');
+const {getMainPage, getMainDate, getMainPrice, getMainLikes, getAccCreatePage} = require('./routes/index');
 const {getUsers, getBuyers, getSellers, insertUser, insertSeller} = require('./routes/users');
 const {addPostPage, getAddPostPage, deletePost} = require('./routes/post');
 const {getPostPage} = require('./routes/products')
@@ -49,6 +49,7 @@ app.use(fileUpload()); // configure fileUpload
 app.get('/', getMainPage); // Go to Main Page
 app.get('/date', getMainDate); // Sort main page by DATE
 app.get('/price', getMainPrice); // Sort main page by PRICE
+app.get('/likes', getMainLikes);
 
 // USER related pages or queries
 app.get('/login', getLogin); // Go to LOGIN page
