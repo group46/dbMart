@@ -10,7 +10,7 @@ const app = express();
 const {getLogin, gotoSettings} = require('./routes/login');
 const {getMainPage, getMainDate, getMainPrice, getAccCreatePage} = require('./routes/index');
 const {getUsers, getBuyers, getSellers, insertUser, insertSeller} = require('./routes/users');
-const {addPostPage, getAddPostPage, deletePost} = require('./routes/post');
+const {addPostPage, getAddPostPage, editPost, editPostPage, deletePost} = require('./routes/post');
 const {getPostPage} = require('./routes/products')
 const {getPriceRange ,getPriceTable} = require('./routes/popq')
 const {getProductComments} = require('./routes/seepost')
@@ -21,8 +21,8 @@ const port = 5000;
 // mysql.createConnection takes in a configuration object which contains host, user, password and the database name.
 const db = mysql.createConnection ({
     host: 'localhost',
-    user: 'ginahong',
-    password: 'ghdatabase',
+    user: 'root',
+    password: 'nickjon20',
     database: 'marketdb',
     multipleStatements : true
 });
@@ -63,6 +63,8 @@ app.get('/see_post/:postid', getProductComments); // Go to ONE POST page (see mo
 app.get('/add_post', getAddPostPage); // Go to CREATE POST page
 app.post('/add_post', addPostPage); // INSERT product_post
 app.get('/delete/:postid', deletePost); // DELETE a certain post
+app.get('/edit/:postid', editPostPage);
+app.post('/edit/:postid', editPost);
 
 // POPULAR QUERIES
 app.get('/pop_q/chooseprice', getPriceRange); // Products in price range feature
