@@ -112,33 +112,45 @@ module.exports = {
       else
         res.redirect('/');
     });
-
-  },
-
-
-
-  deletePost: (req, res)=> {
-    let inputpostid = req.params.postid;
-    let getpostID = 'SELECT * FROM product_posts WHERE postid = "' + inputpostid +'"';
-    let deletePostQuery = 'DELETE FROM product_posts WHERE postid = "' + inputpostid + '"';
-
-    db.query(getpostID, (err, result) => {
-      if (err) {
-        return res.status(500).send(err);
-        console.log("not");
-      }
-      // if no problem retrieving postID, then delete post
-      else {
-        db.query(deletePostQuery, (err, result) => {
-          if (err) {
-            return res.status(500).send(err);
-            console.log("no2");
-          }
-          console.log("delete works!");
-          return res.redirect('/');
+    },
+    deletePostPopUp: (req, res) => {
+        let post_id = req.params.postid;
+        res.render('deletePopUp.ejs', {
+            title: "DB Mart | Enter the uid and password"
+            ,message: post_id
         });
-      }
+    },
+    deletePost: (req, res)=> {
+        let inputpostid = req.params.postid;
+        let userid = req.body.username;
+        let pass = req.body.password;
+        let getpostID = "SELECT p.postid, u.uid, u.password FROM product_posts p, user u WHERE p.uid = u.uid and p.uid = '" + userid + "' and u.password = '" + pass + "' and p.postid = '" + inputpostid + "'";
+        let deletePostQuery = "DELETE FROM product_posts WHERE postid = '" + inputpostid + "'";
 
-    });
-  }
+        console.log(inputpostid);
+
+        db.query(getpostID, (err, result1) => {
+            if (err) {
+                return res.status(500).send(err);
+                console.log("not");
+            } else {
+                // if no problem retrieving postID, then delete post
+                if (result1.length > 0) {
+                    db.query(deletePostQuery, (err, result) => {
+                        if (err) {
+                            return res.status(500).send(err);
+                            console.log("no2");
+                        }
+                        console.log("delete works!");
+                        return res.redirect('/');
+                    });
+                } else {
+                    res.render('deletePopUp.ejs', {
+                        title: "DB Mart | Enter the uid and password"
+                        , message: inputpostid, message2: "Wrong user id and password combination. Please try again."
+                    });
+                }
+            }
+        });
+    },
 }

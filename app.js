@@ -10,7 +10,7 @@ const app = express();
 const {getLogin, gotoSettings} = require('./routes/login');
 const {getMainPage, getMainDate, getMainPrice, getMainLikes, getAccCreatePage} = require('./routes/index');
 const {getUsers, getBuyers, getSellers, insertUser, insertSeller} = require('./routes/users');
-const {addPostPage, getAddPostPage, editPost, editPostPage, deletePost} = require('./routes/post');
+const {addPostPage, getAddPostPage, editPost, editPostPage, deletePostPopUp, deletePost} = require('./routes/post');
 const {getPostPage} = require('./routes/products')
 const {getPriceRange ,getPriceTable} = require('./routes/popq')
 const {getProductComments} = require('./routes/seepost')
@@ -21,8 +21,8 @@ const port = 5000;
 // mysql.createConnection takes in a configuration object which contains host, user, password and the database name.
 const db = mysql.createConnection ({
     host: 'localhost',
-    user: 'root',
-    password: 'nickjon20',
+    user: 'ginahong',
+    password: 'ghdatabase',
     database: 'marketdb',
     multipleStatements : true
 });
@@ -63,7 +63,8 @@ app.post('/getacccreate', insertUser); // INSERT user
 app.get('/see_post/:postid', getProductComments); // Go to ONE POST page (see more)
 app.get('/add_post', getAddPostPage); // Go to CREATE POST page
 app.post('/add_post', addPostPage); // INSERT product_post
-app.get('/delete/:postid', deletePost); // DELETE a certain post
+app.get('/deletepopup/:postid', deletePostPopUp); // DELETE a certain post
+app.post('/deletepopup/:postid', deletePost); // DELETE a certain post
 app.get('/edit/:postid', editPostPage);
 app.post('/edit/:postid', editPost);
 
