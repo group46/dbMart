@@ -153,9 +153,36 @@ UPDATE product_posts SET sold=1
 WHERE postid='2';
 
 -- create views
-CREATE VIEW current_users AS
+CREATE OR REPLACE VIEW main_table
+AS
+	SELECT p.postid, u.uid, CONCAT(u.first_name, ', ', u.last_name) AS 'name', p.product_name,
+		CONCAT(SUBSTRING(p.product_description, 1, 30), '...') AS 'detail',
+		DATE_FORMAT(p.post_date, "%M %d %Y") AS 'date', p.price, p.sold, CASE WHEN p.sold='1' THEN 'true' ELSE 'false' END AS psold,
+        COUNT(*) AS 'likes'
+	FROM user u, product_posts p, user_likes ul
+	WHERE (u.uid = p.uid) and (p.postid = ul.postid)
+	GROUP BY u.uid, u.first_name, u.last_name, p.postid, p.product_name, p.product_description, p.post_date, p.price
+	UNION ALL
+	SELECT p.postid, u.uid, CONCAT(u.first_name, ', ', u.last_name) AS 'name', p.product_name,
+		CONCAT(SUBSTRING(p.product_description, 1, 30), '...') AS 'detail',
+		DATE_FORMAT(p.post_date, "%M %d %Y") AS 'date', p.price, p.sold, CASE WHEN p.sold='1' THEN 'true' ELSE 'false' END AS psold,
+        0 AS 'likes'
+	FROM user u, product_posts p, user_likes ul
+	WHERE (u.uid = p.uid) and (p.postid NOT IN (SELECT postid FROM user_likes))
+	GROUP BY u.uid, u.first_name, u.last_name, p.postid, p.product_name, p.product_description, p.post_date, p.price;
+
+CREATE OR REPLACE VIEW current_users AS
 SELECT uid, first_name, last_name, birthdate
 FROM user;
+
+CREATE OR REPLACE VIEW current_posts
+AS
+SELECT postid, name, product_name, detail, date, price, likes FROM main_table WHERE sold='0';
+
+CREATE OR REPLACE VIEW user_interested AS
+SELECT DISTINCT u.uid, pt.tag_name
+FROM user u, post_has_tag pt, user_likes ul
+WHERE (u.uid = ul.uid) and (pt.postid = ul.postid);
 
 
 -- test queries to check
@@ -168,3 +195,5 @@ select * from user u, user_likes ul, product_posts p
 where u.uid=ul.uid and ul.postid=p.postid;
 select * from comment_authors order by commentdate desc;
 select * from transaction_buys;
+SELECT * FROM main_table;
+SELECT * FROM current_posts;
