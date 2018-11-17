@@ -7,26 +7,24 @@ const mysql = require('mysql');
 const path = require('path');
 const app = express();
 
-// Calling function from routes/<file>.js file
-const {getMainPage, getMainDate, getMainPrice, getAccCreate} = require('./routes/index');
-const {getLogin} = require('./routes/login');
-const {getUsers, getBuyers, getSellers, insertBuyer, insertSeller} = require('./routes/users');
+const {getLogin, gotoSettings} = require('./routes/login');
+const {getMainPage, getMainDate, getMainPrice, getAccCreatePage} = require('./routes/index');
+const {getUsers, getBuyers, getSellers, insertUser, insertSeller} = require('./routes/users');
 const {addPostPage, getAddPostPage, deletePost} = require('./routes/post');
-const {getPostPage} = require('./routes/products.js');
+const {getPostPage} = require('./routes/products')
 const {getPriceRange ,getPriceTable} = require('./routes/popq')
+const {getProductComments} = require('./routes/seepost')
 
-
-
-// const {addPlayerPage, addPlayer, deletePlayer, editPlayer, editPlayerPage} = require('./routes/player');
 const port = 5000;
 
 // create connection to database
 // mysql.createConnection takes in a configuration object which contains host, user, password and the database name.
 const db = mysql.createConnection ({
     host: 'localhost',
-    user: 'root',
-    password: 'nickjon20',
-    database: 'MarketDB'
+    user: 'ginahong',
+    password: 'ghdatabase',
+    database: 'marketdb',
+    multipleStatements : true
 });
 
 db.connect((err) => {
@@ -47,38 +45,33 @@ app.use(fileUpload()); // configure fileUpload
 
 // routes for the app
 
-app.get('/', getMainPage);
-app.get('/date', getMainDate);
-app.get('/price', getMainPrice);
-app.get('/login', getLogin);
-app.get('/users', getUsers);
-app.post('/add_post', addPostPage);
-app.get('/see_post', getPostPage);
-app.get('/add_post', getAddPostPage);
-app.get('/delete/:postid', deletePost);
+// MAIN PAGE
+app.get('/', getMainPage); // Go to Main Page
+app.get('/date', getMainDate); // Sort main page by DATE
+app.get('/price', getMainPrice); // Sort main page by PRICE
 
-/*
-app.get('/productpost/edit:uid', editPostPage);
-app.get('/productpost/delete:uid', deletePostPage);
-app.post('/add_post', addPost);     //require products.js
-app.post('/add_user', addUser);    //require users.js
-app.post('/add_seller', addSeller);    //require users.js?
-*/
-//Show separate list for buyers and sellers
-app.get('/users/buyers/', getBuyers)
-app.get('/users/sellers', getSellers)
+// USER related pages or queries
+app.get('/login', getLogin); // Go to LOGIN page
 
-//If user sells a thing, he joins buyers list, if he purchases a thing, he joins sellers list
-app.post('/makepost-buy', insertBuyer)
-app.post('/makepurchase', insertSeller)
-//Create an account given information about user
-//app.post('createaccdone', createAcc)
+app.get('/users', getUsers); // Go to USERS page
+app.post('/acc-settings', gotoSettings); // EDIT a user (get here by logging in)
+app.get('/getacccreate', getAccCreatePage); // Go to ACC CREATE page
+app.post('/getacccreate', insertUser); // INSERT user
 
-//Update info of users
-//app.post('/accinfo', updateUserInfo)
+// PRODUCT_POSTS
+app.get('/see_post/:postid', getProductComments); // Go to ONE POST page (see more)
+app.get('/add_post', getAddPostPage); // Go to CREATE POST page
+app.post('/add_post', addPostPage); // INSERT product_post
+app.get('/delete/:postid', deletePost); // DELETE a certain post
 
-//Update the post to sold, once transaction occurs
-//app.post('/transactionsuccessful', soldUpdate)
+// POPULAR QUERIES
+app.get('/pop_q/chooseprice', getPriceRange); // Products in price range feature
+app.post('/pop_q/chooseprice', getPriceTable); // Products in price range feature
+
+// app.get('/users/buyers/', getBuyers);
+// app.get('/users/sellers', getSellers);
+// app.post('/makepurchase', insertSeller);
+
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
