@@ -82,7 +82,7 @@ module.exports = {
         db.query(insertCheck, (err, res1) => {
             if (err) {
                 message = "Error in first uid verification query"
-                console.log(mess);
+                console.log(message);
             }
             if (res1.length > 0) {
                 res.render('add-acc.ejs', {
@@ -96,7 +96,7 @@ module.exports = {
                     }
                     db.query(userView, (err, res3) => {
                         if (err) {
-                            message = "something went wrong with showing you the new user.";
+                            message = "something went wrong with showing you the current userbase.";
                         }
                         console.log("User account created!");
                         res.render('users.ejs', {
