@@ -1,8 +1,11 @@
 <% include partials/header.ejs %>
     <div class="container">
-        <% if (message != '') { %>
+        <% if (typeof message != 'undefined') { %>
             <p class="text-center text-danger"><%= message %></p>
         <% } %>
+
+        <h1> Add an Account </h1>
+
         <form class="add-player-form" action="" method="post" enctype="multipart/form-data">
             <div class="form-row">
                 <div class="form-group col-md-4">

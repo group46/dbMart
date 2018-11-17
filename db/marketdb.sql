@@ -52,27 +52,29 @@ CREATE TABLE user (
     PRIMARY KEY (uid)
 );
 
-CREATE TABLE seller (
-    uid VARCHAR(30) NOT NULL,
-    first_name VARCHAR(20) NOT NULL,
-    last_name VARCHAR(20) NOT NULL,
-    password VARCHAR(30) NOT NULL,
-    birthdate DATE,
-    PRIMARY KEY (uid),
-    FOREIGN KEY (uid) REFERENCES user (uid)
-            ON DELETE NO ACTION
-);
+-- ER diagram changed where User, Seller, Buyer are identical. Hence we only make a table for the Parent: User
 
-CREATE TABLE buyer (
-    uid VARCHAR(30) NOT NULL,
-    first_name VARCHAR(20) NOT NULL,
-    last_name VARCHAR(20) NOT NULL,
-    password VARCHAR(30) NOT NULL,
-    birthdate DATE,
-    PRIMARY KEY (uid),
-    FOREIGN KEY (uid) REFERENCES user (uid)
-            ON DELETE NO ACTION
-);
+-- CREATE TABLE seller (
+--     uid VARCHAR(30) NOT NULL,
+--     first_name VARCHAR(20) NOT NULL,
+--     last_name VARCHAR(20) NOT NULL,
+--     password VARCHAR(30) NOT NULL,
+--     birthdate DATE,
+--     PRIMARY KEY (uid),
+--     FOREIGN KEY (uid) REFERENCES user (uid)
+--             ON DELETE NO ACTION
+-- );
+--
+-- CREATE TABLE buyer (
+--     uid VARCHAR(30) NOT NULL,
+--     first_name VARCHAR(20) NOT NULL,
+--     last_name VARCHAR(20) NOT NULL,
+--     password VARCHAR(30) NOT NULL,
+--     birthdate DATE,
+--     PRIMARY KEY (uid),
+--     FOREIGN KEY (uid) REFERENCES user (uid)
+--             ON DELETE NO ACTION
+-- );
 
 -- new sold attribute
 CREATE TABLE product_posts (
@@ -84,7 +86,7 @@ CREATE TABLE product_posts (
     price REAL,
     sold BOOLEAN NOT NULL DEFAULT 0,
     PRIMARY KEY (postid),
-    FOREIGN KEY (uid) REFERENCES seller (uid)
+    FOREIGN KEY (uid) REFERENCES user (uid)
         ON DELETE CASCADE
 );
 
@@ -97,9 +99,9 @@ CREATE TABLE transaction_buys (
     uid VARCHAR(30) NOT NULL,
     PRIMARY KEY (transactionid),
     FOREIGN KEY (postid) REFERENCES product_posts (postid)
-        ON DELETE NO ACTION, -- cant delete post if transaction
-    FOREIGN KEY (uid) REFERENCES buyer (uid)
-        ON DELETE NO ACTION -- cant delete user if transaction
+        ON DELETE CASCADE, -- cant delete post if transaction
+    FOREIGN KEY (uid) REFERENCES user (uid)
+        ON DELETE CASCADE -- cant delete user if transaction
 );
 
 CREATE TABLE comment_authors (

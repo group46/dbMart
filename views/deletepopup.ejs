@@ -1,0 +1,20 @@
+<% include partials/header.ejs %>
+<div class="container">
+    <% if (typeof message2 != 'undefined') { %>
+        <p class="text-center text-danger"><%= message2 %></p>
+    <% } %>
+    <h1>Delete Post Number <%= message %> </h1>
+    <form method="post" action="/deletepopup/<%= message %>">
+        <p>
+            <label>Username:</label>
+            <input type="text" name="username" required>
+        </p>
+        <p>
+            <label>Password:</label>
+            <input type="text" name="password" required>
+        </p>
+        <p>
+            <input type="submit" class="btn btn-sm btn-primary" value="Delete Post">
+        </p>
+    </form>
+</div>

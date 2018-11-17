@@ -7,14 +7,14 @@ const mysql = require('mysql');
 const path = require('path');
 const app = express();
 
-const {getLogin, gotoSettings,updateUser} = require('./routes/login');
-const {getMainPage, getMainDate, getMainPrice, getAccCreatePage} = require('./routes/index');
 
-const {getUsers, getBuyers, getSellers, insertUser, insertSeller} = require('./routes/users');
-const {getAddPost} = require('./routes/addposts')
+const {getLogin, gotoSettings,updateUser} = require('./routes/login');
+const {getMainPage, getMainDate, getMainPrice, getMainLikes, getAccCreatePage} = require('./routes/index');
+
+const {getUsers, insertUser} = require('./routes/users');
+const {addPostPage, getAddPostPage, editPost, editPostPage, deletePostPopUp, deletePost} = require('./routes/post');
 const {getPostPage, soldUpdate} = require('./routes/products')
 const {getPriceRange ,getPriceTable} = require('./routes/popq')
-
 const {getProductComments} = require('./routes/seepost')
 
 const port = 5000;
@@ -23,9 +23,10 @@ const port = 5000;
 // mysql.createConnection takes in a configuration object which contains host, user, password and the database name.
 const db = mysql.createConnection ({
     host: 'localhost',
-    user: 'root',
-    password: 'password1',
-    database: 'marketdb'
+    user: 'ginahong',
+    password: 'ghdatabase',
+    database: 'marketdb',
+    multipleStatements : true
 });
 
 db.connect((err) => {
@@ -45,45 +46,40 @@ app.use(express.static(path.join(__dirname, 'public'))) // conf express to use t
 app.use(fileUpload()); // configure fileUpload
 
 // routes for the app
-//General pages:
-app.get('/', getMainPage);
-app.get('/date', getMainDate);
-app.get('/price', getMainPrice);
-app.get('/login', getLogin);
-app.get('/users', getUsers);
-//Show separate list for buyers and sellers
-app.get('/users/buyers/', getBuyers);
-app.get('/users/sellers', getSellers);
 
-//User account related:
-app.post('/acc-settings', gotoSettings);
-app.post('/update', updateUser);
-app.get('/getacccreate', getAccCreatePage);
-app.post('/getacccreate', insertUser);
+// MAIN PAGE
+app.get('/', getMainPage); // Go to Main Page
+app.get('/date', getMainDate); // Sort main page by DATE
+app.get('/price', getMainPrice); // Sort main page by PRICE
+app.get('/likes', getMainLikes);
 
-//Product post related
-app.get('/add_post', getAddPost);
-app.get('/see_post/:postid', getProductComments);
-//Update the post to sold, once transaction occurs
-app.post('/sold:postid', soldUpdate)
+// USER related pages or queries
+app.get('/login', getLogin); // Go to LOGIN page
 
-app.get('/pop_q/chooseprice', getPriceRange); // gh
-app.post('/pop_q/chooseprice', getPriceTable); // gh
+app.get('/users', getUsers); // Go to USERS page
+app.post('/acc-settings', gotoSettings); // EDIT a user (get here by logging in)
+app.post('/update', updateUser); // UPDATE user info
+app.get('/getacccreate', getAccCreatePage); // Go to ACC CREATE page
+app.post('/getacccreate', insertUser); // INSERT user
 
-// app.get('/pop_q/tag', getTagUser);
-// app.get('/pop_q/comments', getUserComments);
-/*
-app.get('/productpost:postid', getPostPage);
-app.get('/productpost/edit:uid', editPostPage);
-app.get('/productpost/delete:uid', deletePostPage);
-app.post('/add_post', addPost);     //require products.js
-app.post('/add_user', addUser);    //require users.js
-app.post('/add_seller', addSeller);    //require users.js?
-*/
+// PRODUCT_POSTS
+app.get('/see_post/:postid', getProductComments); // Go to ONE POST page (see more)
+app.get('/add_post', getAddPostPage); // Go to CREATE POST page
+app.post('/add_post', addPostPage); // INSERT product_post
+app.get('/deletepopup/:postid', deletePostPopUp); // DELETE a certain post
+app.post('/deletepopup/:postid', deletePost); // DELETE a certain post
+app.get('/edit/:postid', editPostPage);
+app.post('/edit/:postid', editPost);
+app.post('/sold:postid', soldUpdate); //Update the post to sold, once transaction occurs
 
-//If user sells a thing, he joins buyers list, if he purchases a thing, he joins sellers list
-// app.post('/makepost-buy', insertUser);
-app.post('/makepurchase', insertSeller);
+// POPULAR QUERIES
+app.get('/pop_q/chooseprice', getPriceRange); // Products in price range feature
+app.post('/pop_q/chooseprice', getPriceTable); // Products in price range feature
+
+// app.get('/users/buyers/', getBuyers);
+// app.get('/users/sellers', getSellers);
+// app.post('/makepurchase', insertSeller);
+
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);

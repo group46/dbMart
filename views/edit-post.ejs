@@ -1,0 +1,30 @@
+<% include partials/header.ejs %>
+<br>
+<h2> Edit Post </h2>
+<p> What did you do wrong this time? </p>
+
+<br>
+<br>
+
+<div class="container">
+  <form class="add-post-form" action="" method="post" enctype="multipart/form-data">
+    <div class="form-row">
+
+      <div class ="form-group col-md-6">
+        <p> Product Name: </p>
+        <input type="text" class="form-control" name="product_name" id="product-name" placeholder="Change product name" required>
+      </div>
+
+      <div class ="form-group col-md-10">
+        <p> Product Description: </p>
+        <input type="text" class="form-control" name="product_description" id="product-description" placeholder="Change your product description" required>
+      </div>
+
+      <div class ="form-group col-md-10">
+        <p> Price: </p>
+        <input type="text" class="form-control" name="price" id="price" placeholder="Give me your next best price" required>
+      </div>
+
+      <button type="submit" class="btn btn-primary float-right"> Make Changes </button>
+  </form>
+<div>

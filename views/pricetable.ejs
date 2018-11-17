@@ -1,6 +1,9 @@
 <%# login and account creation form %>
 <% include partials/header.ejs %>
-    <div class="container">
+<div class="container">
+    <% if (typeof message != 'undefined') { %>
+        <h2><%= message %></h2>
+    <% } %>
         <form class="price-range-form" action="" method="post" enctype="multipart/form-data">
             <div class="form-row">
                 <div class="form-group col-md-4">
@@ -13,5 +16,3 @@
         </form>
     </div>
 </div>
-</body>
-</html>
