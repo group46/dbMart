@@ -11,6 +11,7 @@ module.exports = {
     addPostPage: (req, res) => {
         let newpostid = '';
         let post_by_id = req.body.post_by_id;
+        let password = req.body.password;
         let product_name = req.body.product_name;
         let product_description = req.body.product_description;
 
@@ -31,10 +32,9 @@ module.exports = {
         let price = req.body.price;
         let tag = req.body.tag;
 
-        // let sold = 0; automatically false
         let postidquery = "SELECT MAX(postid) AS postid FROM product_posts;";
-        // console.log(post_by_id);
         let currentpostid = "SELECT uid FROM user WHERE uid = '" + post_by_id + "'";
+        let passwordquery = "SELECT uid FROM user WHERE uid = '" + post_by_id + "' AND password = '" + password + "'";
 
         db.query(postidquery, (err, result1) => {
             if (err) {
@@ -43,60 +43,74 @@ module.exports = {
             } else {
                 // create a unique postid
                 newpostid = result1[0].postid + 1;
-                console.log(newpostid);
+                // console.log(newpostid);
                 // then do another query to check if user exists
                 db.query(currentpostid, (err, result2) => {
                     if (err) {
                         return res.status(500).send(err);
                         console.log("cannot get list of users");
                     }
-                    console.log(result2);
                     // if account doesn't exist, pls create account
                     if (result2.length != 1) { // if no results
                         message = "User does not exist. Create a new account."
-                        // console.log("user does not exist. create a new account");
                         console.log(result2.length)
                         res.render('add-acc.ejs', {
                             title: "DBMart | Account Creation",
                             message: "User does not exist. Create a new account."
                         });
                     } else {
-                    // if account exists AND postid captured then add into database
-                    // where would i get uid from? oh it's just post_by_id.
-                        let postquery = "INSERT INTO product_posts(postid, uid, product_description, product_name, post_date, price) VALUES ('" + newpostid + "', '" + post_by_id + "', '" + product_description + "', '" + product_name + "', '" + post_date + "', '" + price + "')";
+                      db.query(passwordquery, (err, ptable) => {
+                        if(err) {
+                          return res.status(500).send(err);
+                          console.log("passwordquery error");
+                        }
+                        if (ptable.length == 0) {
+                          console.log("wrong password");
 
-                        db.query(postquery, (err, result3) => {
-                            if (err) {
-                                return res.status(500).send(err);
-                            } else {
-                                if (typeof tag != 'undefined') {
-                                    let tagfindquery = "SELECT tag_name FROM post_has_tag WHERE postid = '" + newpostid + "'";
+                          res.render('add-post.ejs', {
+                            title: "DB Mart | Add Post",
+                            message: "Wrong username or password. Try again" ,
+                            });
+                          }
+                        else {
+                          // if account exists AND postid captured then add into database
+                              let postquery = "INSERT INTO product_posts(postid, uid, product_description, product_name, post_date, price) VALUES ('" + newpostid + "', '" + post_by_id + "', '" + product_description + "', '" + product_name + "', '" + post_date + "', '" + price + "')";
 
-                                    db.query(tagfindquery, (err, result4) => {
-                                        if (err) {
-                                            return res.status(500).send(err);
-                                        } else { // if postid has tag
-                                            let tagquery = "INSERT INTO post_has_tag(postid, tag_name) VALUES ( (SELECT postid FROM product_posts WHERE postid = '" + newpostid + "'), '" + tag + "')";
+                              db.query(postquery, (err, result3) => {
+                                  if (err) {
+                                      return res.status(500).send(err);
+                                  } else {
+                                      if (typeof tag != 'undefined') {
+                                          let tagfindquery = "SELECT tag_name FROM post_has_tag WHERE postid = '" + newpostid + "'";
 
-                                            db.query(tagquery, (err, result5) => {
-                                                if (err) {
-                                                    return res.status(500).send(err);
-                                                    }
-                                                res.redirect('/');
-                                            });
-                                        }
-                                    });
-                                } else {
-                                    res.redirect('/');
-                                    console.log("that post had no tags!");
-                                }
-                            }
-                        });
+                                          db.query(tagfindquery, (err, result4) => {
+                                              if (err) {
+                                                  return res.status(500).send(err);
+                                              } else { // if postid has tag
+                                                  let tagquery = "INSERT INTO post_has_tag(postid, tag_name) VALUES ( (SELECT postid FROM product_posts WHERE postid = '" + newpostid + "'), '" + tag + "')";
+
+                                                  db.query(tagquery, (err, result5) => {
+                                                      if (err) {
+                                                          return res.status(500).send(err);
+                                                          }
+                                                      res.redirect('/');
+                                                  });
+                                              }
+                                          });
+                                      } else {
+                                          res.redirect('/');
+                                          console.log("that post had no tags!");
+                                      }
+                                  }
+                              });
+                        }
+                      });
                     }
-                });
-            }
-        });
-    },
+                  });
+                }
+              });
+            },
+
 
   editPostPage: (req, res) => {
     let post_id = req.params.postid;
