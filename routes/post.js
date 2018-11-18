@@ -31,6 +31,7 @@ module.exports = {
 
     let post_date = today;
     let price = req.body.price;
+    let tag = req.body.tag;
     // let sold = 0; automatically false
 
     let postidquery = "SELECT * FROM product_posts";
@@ -63,6 +64,7 @@ module.exports = {
                 message: "User does not exist. Create a new account."
             });
         }
+
           // if account exists AND postid captured then add into database
           // where would i get uid from? oh it's just post_by_id.
           else {
@@ -71,6 +73,24 @@ module.exports = {
               if (err) {
                 return res.status(500).send(err);
               }
+              else {
+                let tagfindquery = "SELECT tag_name FROM post_has_tag WHERE postid = '" + newpostid + "'";
+                db.query(tagfindquery, (err, result4) => {
+                  if (err) {
+                    return res.status(500).send(err);
+                  }
+                  else { // if postid has tag
+                    let tagquery = "INSERT INTO post_has_tag(postid, tag_name) VALUES ( (SELECT postid FROM product_posts WHERE postid = '" + newpostid + "'), '" + tag + "')";
+                    db.query(tagquery, (err, result5) => {
+                      if (err) {
+                        return res.status(500).send(err);
+                      }
+
+                    });
+                  }
+                });
+              }
+
               res.redirect('/');
             });
           }
@@ -103,7 +123,6 @@ module.exports = {
     let price = req.body.price;
 
     let editquery = "UPDATE product_posts SET product_name = '" + product_name + "', `product_description` = '" + product_description + "', `price` = '" + price + "' WHERE postid = '" + post_id + "'";
-    // let editquery = "SELECT * FROM product_posts WHERE postid = '" + post_id + "'";
     db.query(editquery, (err, result) => {
       if (err) {
         return res.status(500).send(err);
