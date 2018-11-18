@@ -1,7 +1,11 @@
 <% include partials/header.ejs %>
+<% if (message) { %>
+    <p class="text-center text-danger"><%= message %></p>
+<% } %>
 <div class="container">
     <br>
     <h2> Add a Post </h2>
+
     <p> What star spangled item are you selling today? </p>
 
     <br>
@@ -11,6 +15,10 @@
       <div class ="form-group col-md-4">
         <p> User ID: </p>
         <input type="text" class="form-control" name="post_by_id" id="post-by-id" placeholder="UserID" required>
+      </div>
+      <div class ="form-group col-md-4">
+        <p> Password: </p>
+        <input type="text" class="form-control" name="password" id="password" placeholder="Password" required>
       </div>
       <div class ="form-group col-md-6">
         <p> Product Name: </p>
