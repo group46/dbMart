@@ -2,102 +2,101 @@ const fs = require('fs');
 
 module.exports = {
 
-  getAddPostPage: (req, res) => {
-    res.render('add-post.ejs', {
-      title: "DBMart | Create New Post",
-      message: '',
-    });
-  },
-
-
-
-  addPostPage: (req, res) => {
-    let newpostid = '';
-    let post_by_id = req.body.post_by_id;
-    let product_name = req.body.product_name;
-    let product_description = req.body.product_description;
-
-    var date = new Date();
-    var dd = date.getDate();
-    var mm = date.getMonth() + 1;
-    var yyyy = date.getFullYear();
-    if (dd<10) {
-      dd = '0'+dd
-    }
-    if (mm<10) {
-      mm = '0'+mm
-    }
-    var today = yyyy + '-' + mm + '-' + dd;
-
-    let post_date = today;
-    let price = req.body.price;
-    let tag = req.body.tag;
-    // let sold = 0; automatically false
-
-    let postidquery = "SELECT * FROM product_posts";
-    // console.log(post_by_id);
-    let currentpostid = "SELECT uid FROM user WHERE uid = '" + post_by_id + "'";
-
-    db.query(postidquery, (err, result1) => {
-      if (err) {
-        return res.status(500).send(err);
-        console.log("postidquery error");
-      }
-      // create a unique postid
-      else {
-        newpostid = result1.length + 1;
-
-        // then do another query to check if user exists
-        db.query(currentpostid, (err, result2) => {
-          if (err) {
-            return res.status(500).send(err);
-            console.log("cannot get list of users");
-          }
-          console.log(result2);
-          // if account doesn't exist, pls create account
-          if (result2.length != 1) { // if no results
-            message = "User does not exist. Create a new account."
-            // console.log("user does not exist. create a new account");
-            console.log(result2.length)
-            res.render('add-acc.ejs', {
-                title: "DBMart | Account Creation",
-                message: "User does not exist. Create a new account."
-            });
-        }
-
-          // if account exists AND postid captured then add into database
-          // where would i get uid from? oh it's just post_by_id.
-          else {
-            let postquery = "INSERT INTO product_posts(postid, uid, product_description, product_name, post_date, price) VALUES ('" + newpostid + "', '" + post_by_id + "', '" + product_description + "', '" + product_name + "', '" + post_date + "', '" + price + "')";
-            db.query(postquery, (err, result3) => {
-              if (err) {
-                return res.status(500).send(err);
-              }
-              else {
-                let tagfindquery = "SELECT tag_name FROM post_has_tag WHERE postid = '" + newpostid + "'";
-                db.query(tagfindquery, (err, result4) => {
-                  if (err) {
-                    return res.status(500).send(err);
-                  }
-                  else { // if postid has tag
-                    let tagquery = "INSERT INTO post_has_tag(postid, tag_name) VALUES ( (SELECT postid FROM product_posts WHERE postid = '" + newpostid + "'), '" + tag + "')";
-                    db.query(tagquery, (err, result5) => {
-                      if (err) {
-                        return res.status(500).send(err);
-                      }
-
-                    });
-                  }
-                });
-              }
-
-              res.redirect('/');
-            });
-          }
+    getAddPostPage: (req, res) => {
+        res.render('add-post.ejs', {
+            title: "DBMart | Create New Post",
+            message: '',
         });
-      }
-    });
-  },
+    },
+    addPostPage: (req, res) => {
+        let newpostid = '';
+        let post_by_id = req.body.post_by_id;
+        let product_name = req.body.product_name;
+        let product_description = req.body.product_description;
+
+        var date = new Date();
+        var dd = date.getDate();
+        var mm = date.getMonth() + 1;
+        var yyyy = date.getFullYear();
+
+        if (dd<10) {
+            dd = '0'+dd
+        }
+        if (mm<10) {
+            mm = '0'+mm
+        }
+        var today = yyyy + '-' + mm + '-' + dd;
+
+        let post_date = today;
+        let price = req.body.price;
+        let tag = req.body.tag;
+
+        // let sold = 0; automatically false
+        let postidquery = "SELECT MAX(postid) AS postid FROM product_posts;";
+        // console.log(post_by_id);
+        let currentpostid = "SELECT uid FROM user WHERE uid = '" + post_by_id + "'";
+
+        db.query(postidquery, (err, result1) => {
+            if (err) {
+                return res.status(500).send(err);
+                console.log("postidquery error");
+            } else {
+                // create a unique postid
+                newpostid = result1[0].postid + 1;
+                console.log(newpostid);
+                // then do another query to check if user exists
+                db.query(currentpostid, (err, result2) => {
+                    if (err) {
+                        return res.status(500).send(err);
+                        console.log("cannot get list of users");
+                    }
+                    console.log(result2);
+                    // if account doesn't exist, pls create account
+                    if (result2.length != 1) { // if no results
+                        message = "User does not exist. Create a new account."
+                        // console.log("user does not exist. create a new account");
+                        console.log(result2.length)
+                        res.render('add-acc.ejs', {
+                            title: "DBMart | Account Creation",
+                            message: "User does not exist. Create a new account."
+                        });
+                    } else {
+                    // if account exists AND postid captured then add into database
+                    // where would i get uid from? oh it's just post_by_id.
+                        let postquery = "INSERT INTO product_posts(postid, uid, product_description, product_name, post_date, price) VALUES ('" + newpostid + "', '" + post_by_id + "', '" + product_description + "', '" + product_name + "', '" + post_date + "', '" + price + "')";
+
+                        db.query(postquery, (err, result3) => {
+                            if (err) {
+                                return res.status(500).send(err);
+                            } else {
+                                if (typeof tag != 'undefined') {
+                                    let tagfindquery = "SELECT tag_name FROM post_has_tag WHERE postid = '" + newpostid + "'";
+
+                                    db.query(tagfindquery, (err, result4) => {
+                                        if (err) {
+                                            return res.status(500).send(err);
+                                        } else { // if postid has tag
+                                            let tagquery = "INSERT INTO post_has_tag(postid, tag_name) VALUES ( (SELECT postid FROM product_posts WHERE postid = '" + newpostid + "'), '" + tag + "')";
+
+                                            db.query(tagquery, (err, result5) => {
+                                                if (err) {
+                                                    return res.status(500).send(err);
+                                                    }
+                                                res.redirect('/');
+                                            });
+                                        }
+                                    });
+                                } else {
+                                    res.redirect('/');
+                                    console.log("that post had no tags!");
+                                }
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    },
 
   editPostPage: (req, res) => {
     let post_id = req.params.postid;

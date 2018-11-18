@@ -38,36 +38,6 @@ module.exports = {
       })
     },
 
-    getBuyers: (req, res) => {
-        let query = "SELECT uid, first_name, last_name, DATE_FORMAT(`birthdate`, '%Y-%m-%d') AS birthdate FROM `buyer` ORDER BY first_name DESC"
-
-        db.query(query, (err, result) => {
-            if (err) {
-                res.redirect('/')
-            }
-            res.render('users.ejs', {
-                title: "DBMart | Buyers"
-                ,users: result,
-                message: ""
-            });
-        });
-    },
-
-    getSellers: (req, res) => {
-        let query = "SELECT uid, first_name, last_name, DATE_FORMAT(`birthdate`, '%Y-%m-%d') AS birthdate FROM `seller`"
-
-        db.query(query, (err, result) => {
-            if (err) {
-                res.redirect('/')
-            }
-            res.render('users.ejs', {
-                title: "DBMart | Sellers"
-                ,users: result,
-                message: ""
-            });
-        });
-    },
-
     insertUser: (req, res) => {
         let uid = req.body.user_id
         let first_name = req.body.first_name
@@ -111,7 +81,6 @@ module.exports = {
     },
     getUsersDate: (req, res) => {
         let query = "SELECT uid, first_name, last_name, DATE_FORMAT(`birthdate`, '%Y-%m-%d') AS birthdate FROM `user` ORDER BY birthdate DESC"; // get all users and order by first name
-
         // query executed
         db.query(query, (err, result) => {
             if (err) {
@@ -123,32 +92,5 @@ module.exports = {
                 message: ""
             });
         });
-    },
-
-    insertSeller: (req, res) => {
-
-      let uid = req.body.uid
-      let first_name = req.body.first_name
-      let last_name = req.body.last_name
-      let password = req.body.password
-      let birthdate = req.body.birthdate
-
-      let nameQuery = "SELECT * FROM `user` AS u WHERE u.uid = '" + uid + "'"
-      let query = "INSERT INTO `seller` (uid, first_name, last_name, birthdate) values ('" + uid + "', '" + first_name + "', '" + last_name + "', '" + password + "', '" + birthdate + "')"
-
-      db.query(nameQuery,(err, res) => {
-        if (err) {
-          //print invalid entry?
-          console.log(err)
-        }
-        //if userid is empty, no user exists, redirects to make new acc
-        if (res.length = 0) {
-          res.redirect('/add-acc')
-        } else {
-          db.query(query, (err, res) => {
-            console.log(res)
-          })
-        }
-      })
     },
 }
