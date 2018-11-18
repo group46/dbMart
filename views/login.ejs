@@ -2,7 +2,10 @@
 <% include partials/header.ejs %>
 <div class="container">
     <p><br /> <br /></p>
-    <h1>Login</h1>
+    <h1>Account</h1>
+    <% if (message) { %>
+        <p><%= message %></p>
+    <% } %>
     <p><br /></p>
     <form method="post" action="acc-settings">
         <p>
