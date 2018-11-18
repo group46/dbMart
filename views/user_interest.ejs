@@ -1,0 +1,36 @@
+<% include partials/header.ejs %>
+<div class="container">
+    <h2>Users and Advertisements</h2>
+    <p><br/>This table is created based on the user_interest <b>VIEW</b> table which keeps track of which 'tag' a user may be interested in.
+        <br />This "interest" is based on the user's like history.
+        <br /> The user_interest view is created through <b>JOIN</b> of user, post_has_tag, and user_likes. <br />
+        This view is then <b>JOIN</b>ed with advertisement, ad_has_tag tables to map the user's list of interested tags and advertisements.</p>
+    <div class="table">
+        <% if (table.length > 0) {%>
+            <table class="table table-hovered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">User #</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Advertisement ID</th>
+                        <th scope="col">"Image"</th>
+                        <th scope="col">"Link"</th>
+                        <th scope="col">Advertisement Tag</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% table.forEach((row, index) => { %>
+                        <tr>
+                            <th scope="row"><%= row.uid %></th>
+                            <td><%= row.Name %></td>
+                            <td><%= row.adid %></td>
+                            <td><%= row.adimage %></td>
+                            <td><%= row.adlink %></td>
+                            <td><%= row.tag_name %></td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        <% } %>
+    </div>
+</div>
