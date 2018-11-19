@@ -1,20 +1,24 @@
 <%# login and account creation form %>
 <% include partials/header.ejs %>
-
-<h1 align="center">Login</h1>
-<form method="post" action="acc-settings" align="center">
-  <p>
-    <label>Username:</label>
-    <input type="text" name="uid" required>
-  </p>
-  <p>
-    <label>Password:</label>
-    <input type="text" name="password" required>
-  </p>
-  <p>
-    <input type="submit" value="login">
-  </p>
-</form>
-<form align="center">
-<a href="/getacccreate" class="btn btn-sm btn-primary">Create Account</a>
-</form>
+<div class="container">
+    <p><br /> <br /></p>
+    <h1>Account</h1>
+    <% if (typeof message != 'undefined') { %>
+        <p><%= message %></p>
+    <% } %>
+    <p><br /></p>
+    <form method="post" action="acc-settings">
+        <p>
+            <label>Username:</label>
+            <input type="text" name="uid" required>
+        </p>
+        <p>
+            <label>Password:</label>
+            <input type="text" name="password" required>
+        </p>
+        <p>
+            <input type="submit" value="login">
+        </p>
+    </form>
+    <a href="/getacccreate" class="btn btn-sm btn-primary">Create Account</a>
+</div>

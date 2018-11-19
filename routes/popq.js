@@ -38,7 +38,8 @@ module.exports = {
         });
     },
     getUserAd: (req, res) => {
-        let query = "SELECT DISTINCT u.uid, CONCAT(u.first_name, ', ', u.last_name) AS 'Name', a.adid, a.adimage, a.adlink, atag.tag_name\
+        let query = "\
+        SELECT DISTINCT u.uid, CONCAT(u.first_name, ', ', u.last_name) AS 'Name', a.adid, a.adimage, a.adlink, atag.tag_name\
         FROM advertisement a, user u, ad_has_tag atag, user_interested ui \
         WHERE (a.adid = atag.adid) and (u.uid = ui.uid) and (ui.tag_name = atag.tag_name) \
         UNION ALL\

@@ -4,7 +4,6 @@
     <% if (message != '') { %>
         <p class="text-center text-danger"><%= message %></p>
     <% } %>
-</div>
     <div class="table-wrapper">
         <% if (users.length > 0) {%>
             <table class="table table-hovered">
@@ -13,7 +12,7 @@
                         <th scope="col">Username</th>
                         <th scope="col">First Name</th>
                         <th scope="col">Last Name</th>
-                        <th scope="col"><a href="/date">Birth Date</a></th>
+                        <th scope="col"><a href="/users/date">Birth Date</a></th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
@@ -25,8 +24,7 @@
                             <td><%= user.last_name %></td>
                             <td><%= user.birthdate %></td>
                             <td>
-                                <a href="/edit/<%= user.uid %>" target="_blank" rel="noopener" class="btn btn-sm btn-success">Edit</a>
-                                <a href="/delete/<%= user.uid %>" class="btn btn-sm btn-danger">Delete</a>
+                                <a href="/login" target="_blank" rel="noopener" class="btn btn-sm btn-success">Edit</a>
                             </td>
                         </tr>
                     <% }) %>
@@ -37,5 +35,3 @@
         <% } %>
     </div>
 </div>
-</body>
-</html>

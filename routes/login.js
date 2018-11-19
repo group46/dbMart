@@ -9,8 +9,8 @@ module.exports = {
                 res.redirect('/');
             }
             res.render('login.ejs', {
-                title: "DBMart | Login"
-                ,posts: result
+                title: "DBMart | Accounts"
+                ,posts: result, message: "Access and edit your account by typing in your username and password!"
             });
         });
     },

@@ -11,7 +11,7 @@ const app = express();
 const {getLogin, gotoSettings,updateUser} = require('./routes/login');
 const {getMainPage, getMainDate, getMainPrice, getMainLikes, getAccCreatePage} = require('./routes/index');
 
-const {getUsers, insertUser} = require('./routes/users');
+const {getUsers, getUsersDate, insertUser} = require('./routes/users');
 const {addPostPage, getAddPostPage, editPost, editPostPage, deletePostPopUp, deletePost} = require('./routes/post');
 const {getPostPage, soldUpdate} = require('./routes/products')
 const {getPriceRange ,getPriceTable, getUserAd, getBestPost} = require('./routes/popq')
@@ -57,6 +57,7 @@ app.get('/likes', getMainLikes);
 app.get('/login', getLogin); // Go to LOGIN page
 
 app.get('/users', getUsers); // Go to USERS page
+app.get('/users/date', getUsersDate); // SORT users by date
 app.post('/acc-settings', gotoSettings); // EDIT a user (get here by logging in)
 app.post('/update', updateUser); // UPDATE user info
 app.get('/getacccreate', getAccCreatePage); // Go to ACC CREATE page

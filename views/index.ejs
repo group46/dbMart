@@ -17,7 +17,7 @@
                             <th scope="col">Seller Name</th>
                             <th scope="col">Prod Name</th>
                             <th scope="col">Detail</th>
-                            <th scope="col"><a href="/date">Date</a></th>
+                            <th scope="col">Date</th>
                             <th scope="col"><a href="/price">Price</a></th>
                             <th scope="col">Sold?</th>
                             <th scope="col"><a href="/likes">Likes</a></th>
@@ -28,7 +28,6 @@
                         <% posts.forEach((post, index) => { %>
                             <tr>
                                 <th scope="row"><%= post.postid %></th>
-                                <!-- <td><img src="/assets/img/<%= post.image %>" class="rounded-circle post-img" alt=""></td> -->
                                 <td><%= post.uid %></td>
                                 <td><%= post.name %></td>
                                 <td><%= post.product_name %></td>

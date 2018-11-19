@@ -1,17 +1,21 @@
 <% include partials/header.ejs %>
-<br>
-<h2> Add a Post </h2>
-<p> What star spangled item are you selling today? </p>
-
-<br>
-<br>
-
 <div class="container">
+    <br>
+    <h2> Add a Post </h2>
+    <p> What star spangled item are you selling today? </p>
+    <br>
+    <% if (typeof message != 'undefined') { %>
+        <p class="text-center text-danger"><%= message %></p>
+    <% } %>
   <form class="add-post-form" action="" method="post" enctype="multipart/form-data">
     <div class="form-row">
       <div class ="form-group col-md-4">
         <p> User ID: </p>
         <input type="text" class="form-control" name="post_by_id" id="post-by-id" placeholder="UserID" required>
+      </div>
+      <div class ="form-group col-md-4">
+        <p> Password: </p>
+        <input type="text" class="form-control" name="password" id="password" placeholder="Password" required>
       </div>
       <div class ="form-group col-md-6">
         <p> Product Name: </p>
@@ -24,6 +28,16 @@
       <div class ="form-group col-md-10">
         <p> Price: </p>
         <input type="text" class="form-control" name="price" id="price" placeholder="State your price" required>
+      </div>
+      <div class="form-group col-md-6">
+        <p> Tag: </p>
+        <select id="tag" name="tag" class="form-control" required>
+          <option selected disabled> Choose tag </option>
+          <option> Boat </option>
+          <option> Electronic </option>
+          <option> Sports </option>
+          <option> Used </option>
+        </select>
       </div>
       <button type="submit" class="btn btn-primary float-right"> Add New Post</button>
   </form>
