@@ -27,6 +27,21 @@ then go to app.js and modify the 'username' and 'password' to run mysql **IMPORT
 once all dependencies are installed and app.js modified, try this on terminal
 
         nodemon app.js
+       
+ If all node dependencies (listed in the package.json file) are installed, the app should run smoothly on localhost:5000!
+ 
+### Loading the Database
+
+ We used mysql to load the files. First,
+        
+        mysql -u username -p password
+        
+ Then do
+ 
+        source /path/to/marketdb.sql     // Loads the database and tables. (Also 'drops' the tables. Useful for resetting data)
+        
+        source /path/to/populate_marketdb.sql    // Loads the sample users, posts, comments, ads, etc. of the project.
+ 
 
 ### Using git for project management
 1. clone repo using:
