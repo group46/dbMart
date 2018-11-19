@@ -37,12 +37,12 @@ module.exports = {
       commentid = resultOne[0].commentid + 1;
       console.log(commentid);
       db.query(accountQuery, (err, resultTwo) => {
-        if (err) {
-          return res.status(500).send(err);
-          console.log("Access Denied : No Such Username");
-          //'Access Denied : No Such Username'
-        }
-        if (resultTwo.length != 1) {
+        if (err || isNaN(resultTwo)) {
+          res.render('add-acc.ejs', {
+              title: "DBMart | Account Creation",
+              message: "Access Denied : No Such Username"
+          });
+        } else if (resultTwo.length != 1) {
             console.log(resultTwo.length)
             res.render('add-acc.ejs', {
                 title: "DBMart | Account Creation",
