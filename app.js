@@ -23,8 +23,8 @@ const port = 5000;
 // mysql.createConnection takes in a configuration object which contains host, user, password and the database name.
 const db = mysql.createConnection ({
     host: 'localhost',
-    user: 'root',
-    password: 'password1',
+    user: 'ginahong',
+    password: 'ghdatabase',
     database: 'marketdb',
     multipleStatements : true
 });
@@ -77,7 +77,7 @@ app.post('/sold:postid', soldUpdate); //Update the post to sold, once transactio
 app.get('/pop_q/chooseprice', getPriceRange); // Products in price range feature
 app.post('/pop_q/chooseprice', getPriceTable); // Products in price range feature
 app.get('/pop_q/user_interest', getUserAd); // Users and advertisements they could see
-app.get('/pop_q/best_post', getBestPost);
+app.get('/pop_q/best_post', getBestPost); // Posts liked by ALL users (DIVISION)
 
 // app.get('/users/buyers/', getBuyers);
 // app.get('/users/sellers', getSellers);

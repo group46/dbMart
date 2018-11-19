@@ -63,21 +63,27 @@ module.exports = {
     },
     getBestPost: (req,res) => {
 
-    	let divquery = "SELECT * FROM `user_likes` as u \
-      WHERE NOT EXISTS (\
-        (SELECT ul.uid FROM `user` as ul)\
-         NOT IN\
-         (SELECT ul1.uid FROM `user_likes` as ul1 WHERE ul1.postid = u.postid))";
+		let query = "SELECT ul.postid AS 'postid', p.product_name AS 'name', \
+		CONCAT(SUBSTRING(p.product_description, 1, 30), '...') AS 'detail', \
+		DATE_FORMAT(p.post_date, '%M %d %Y') AS 'date', p.price AS 'price', p.sold, CASE WHEN p.sold='1' THEN 'true' ELSE 'false' END AS 'sold' \
+		FROM user_likes ul, product_posts p \
+		WHERE ul.postid = p.postid \
+		GROUP BY ul.postid \
+		HAVING count(ul.uid) = \
+		(SELECT COUNT(*) FROM user);"
 
-    	db.query(divquery, (err,res1) => {
-    		if (err) {
-    			return res.status(500).send(err);
-    		}
-    		res.render('bestpost.ejs', {
-    			title: "DBMart | Best posts"
-    			,post: res1
-    			,message: "Post liked by all:"
-    		})
-    	})
-    }
+		db.query(query, (err,res1) => {
+			if (err) {
+                res.redirect('/');
+    			console.log("something went wrong with the getBestPost query");
+				throw err
+			} else {
+				res.render('best-post.ejs', {
+					title: "DBMart | Best post"
+					,posts: res1
+					,message: "Post(s) liked by all users:"
+				});
+			}
+		});
+	},
 }
