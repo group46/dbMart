@@ -82,17 +82,32 @@ once all dependencies are installed and app.js modified, try this on terminal
 ## 1. Project Proposal
 ### What is the domain of the application?
 
-The domain of our application is a social media platform that focuses on allowing a marketplace, for users to buy and sell products. Users can bid for goods, leave comments, and search through the product tag to make a decision. Based on a user’s previous purchases, posts, comments, tags, and friends, our platform will recommend products to the user.
+MarketDB (or DBMart) is a web application for users to buy and sell products. The current list of functionalities allows Users to create an account, add product posts, edit and delete posts, search for products in their price range, and see previous comments. 
+Additionally, based on a user’s previous likes, our platform will be able to ‘match’ certain advertisements to that user.
 
 ### What aspects of the domain are modeled by the database?
 
-Our platform will use a database to store users’ account details, previous transactions, ongoing sales, users’ posts and comments as well as post and transaction tags. Our platforms recommendation feature will query the database extensively to provide users with recommendations. Users can query the database for other users’ accounts, posts and comments as well as ongoing sales and past transactions.
+Our platform will use a database to store users’ account details, previous transactions, ongoing sales, users’ posts and comments as well as post and transaction tags. Our platforms recommendation feature will query the database to provide users with recommendations. Users can query the database for other users’ accounts, posts and comments as well as ongoing sales.
 
 ### Query
-- Certain User’s ongoing sales / past transactions
-- All sales of a certain item
-- Which product would User be interested in? (recommendation)
-- Show items of certain type that is within a certain price range
+
+|  **Category** | **General idea** | **detailed** |
+|  ------ | ------ | ------ |
+|  2-INSERT<br/>(REQ 1) | A. Add Post (N) | A user is able to add a post with a product he wants to sell. The postid is auto-generated user must type in a valid username/password combination.. |
+|   | B. Add User (A) | A user creates an account. Insert new user info in to User table |
+|   | F. Add Tag (N) | A user adds a tag to their product post. (“tag” field when adding post) |
+|  3-DELETE<br/>(REQ 1) | A. Delete Post (N) | With the right username/password combination, you can delete a post. |
+|  4-UPDATE<br/>(REQ 1) | A. Edit Post (N) | User can make changes to a post. (change description, product name) |
+|   | B. Update account info (A) | User can update their account info (Not user_ID though) |
+|  5-JOIN(3)(REQ 1) | A. linking users w/ advertisements they may be interested in. (G) | Query which user is interested in which advertisement + tag. JOINs advertisement, user, ad_has_tag, and user_interested(view).. |
+|  6-JOIN(2)<br/>(REQ 1) | B. Comment with User first name, last name (M) | Displays user name with comment. JOIN user w/ comment_authors. |
+|  7-GROUPBY<br/>(REQ 1) | A. Show product_post information (number of likes each post has). | This is the “main_table” that you see on the main page. (groupby, join(3), view, union). One column shows number of likes. |
+|  8-GEN<br/>(SELECT) | User Verification in delete post (G) | Select query that searches for the user inputted uid and password values. Used in post deletion, where if the result of this query is empty, post cannot be deleted. |
+|  9-GEN<br/>(SELECT) | Current_posts in price range (G) | Select query that searches for current_posts that are within a user specified price range. |
+|  10-GEN | Select from the extra SQLs in Insert (B and F) |  |
+|  11-VIEW<br/>(REQ 1) | A. Current product post (G) | Create view current_posts where posts are not marked as sold. (used to SELECT posts in certain price point). |
+|   | B. User_interested (G) | Create view that joins user, post_has_tag, and user_likes. It shows which tags a user is interested in based on their likes history. Used for the Join(3) query (linking users with advertisements). |
+|  12-<br/>DIVISION | A.Get post that all users liked |  |
 
 ### What benefit does the database provide to the application? / What functionality will the database provide?
 
@@ -114,7 +129,7 @@ The ER Diagram is the entity_relation_diagram.jpg and is also found in the cpsc3
 Info about translating into relational model, the FDs, and the normalization are in the cpsc304_coverpage_document.pdf
 
 ### SQL DDL Create Tables
-See the project_phase2.sql
+See the /db folder's marketdb.sql
 
 ## Final Deliverables
 ![screen shot 2018-11-18 at 6 15 32 pm](https://user-images.githubusercontent.com/32022159/48683024-f9ca3800-eb5f-11e8-8357-63900f7fa50c.png)
