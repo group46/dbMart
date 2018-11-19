@@ -1,15 +1,12 @@
 <% include partials/header.ejs %>
-<% if (message) { %>
-    <p class="text-center text-danger"><%= message %></p>
-<% } %>
 <div class="container">
     <br>
     <h2> Add a Post </h2>
-
     <p> What star spangled item are you selling today? </p>
-
     <br>
-    <br>
+    <% if (typeof message != 'undefined') { %>
+        <p class="text-center text-danger"><%= message %></p>
+    <% } %>
   <form class="add-post-form" action="" method="post" enctype="multipart/form-data">
     <div class="form-row">
       <div class ="form-group col-md-4">
