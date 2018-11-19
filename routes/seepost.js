@@ -15,8 +15,7 @@ module.exports = {
         res.render('seepost.ejs', {
             title: "DBMart | Checkout all product posts!",
             postOne: result[0],
-            postTwo: result[1],
-            postid: req.params.postid
+            postTwo: result[1]
         });
     });
   }
