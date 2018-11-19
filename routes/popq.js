@@ -60,5 +60,24 @@ module.exports = {
                 ,table: result
             });
         });
+    },
+    getBestPost: (req,res) => {
+
+    	let divquery = "SELECT * FROM `user_likes` as u \
+      WHERE NOT EXISTS (\
+        (SELECT ul.uid FROM `user` as ul)\
+         NOT IN\
+         (SELECT ul1.uid FROM `user_likes` as ul1 WHERE ul1.postid = u.postid))";
+
+    	db.query(divquery, (err,res1) => {
+    		if (err) {
+    			return res.status(500).send(err);
+    		}
+    		res.render('bestpost.ejs', {
+    			title: "DBMart | Best posts"
+    			,post: res1
+    			,message: "Post liked by all:"
+    		})
+    	})
     }
 }

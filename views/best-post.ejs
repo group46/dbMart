@@ -1,0 +1,63 @@
+<%# table view of all users %>
+<% include partials/header.ejs %>
+<div class="row">
+    <div class="col col-sm-2">
+        <div class="well">
+            <h3>Space for ad!</h3>
+        </div>
+    </div>
+    <div class="col">
+        <div class="table">
+            <% if (posts.length > 0) {%>
+                <table class="table table-hovered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Post#</th>
+                            <th scope="col">uid</th>
+                            <th scope="col">Seller Name</th>
+                            <th scope="col">Prod Name</th>
+                            <th scope="col">Detail</th>
+                            <th scope="col"><a href="/date">Date</a></th>
+                            <th scope="col"><a href="/price">Price</a></th>
+                            <th scope="col">Sold?</th>
+                            <th scope="col"><a href="/likes">Likes</a></th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% posts.forEach((post, index) => { %>
+                            <tr>
+                                <th scope="row"><%= post.postid %></th>
+                                <!-- <td><img src="/assets/img/<%= post.image %>" class="rounded-circle post-img" alt=""></td> -->
+                                <td><%= post.uid %></td>
+                                <td><%= post.name %></td>
+                                <td><%= post.product_name %></td>
+                                <td><%= post.detail %></td>
+                                <td><%= post.date %></td>
+                                <td>$<%= post.price %></td>
+                                <td><%= post.psold %></td>
+                                <td><%= post.likes %></td>
+                                <td>
+                                    <a href="/see_post/<%= post.postid %>" class="btn btn-sm btn-primary">See More</a>
+                                    <a href="/edit/<%= post.postid %>" target="_blank" rel="noopener" class="btn btn-sm btn-success">Edit</a>
+                                    <a href="/deletepopup/<%=post.postid %>" class="btn btn-sm btn-danger">Delete</a>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            <% } else { %>
+                <p class="text-center">No posts found. Go <a href="/add" >here</a> to add posts.</p>
+            <% } %>
+            <div class="align-middle">
+                <a href="/add_post" class="btn btn-sm btn-info">Create New Post</a>
+            </div>
+        </div>
+    </div>
+    <div class="col col-sm-2">
+        <div class="well">
+            <h3>More space for ad!</h3>
+        </div>
+    </div>
+</div>
+</html>

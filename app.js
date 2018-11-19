@@ -14,7 +14,7 @@ const {getMainPage, getMainDate, getMainPrice, getMainLikes, getAccCreatePage} =
 const {getUsers, getUsersDate, insertUser} = require('./routes/users');
 const {addPostPage, getAddPostPage, editPost, editPostPage, deletePostPopUp, deletePost} = require('./routes/post');
 const {getPostPage, soldUpdate} = require('./routes/products')
-const {getPriceRange ,getPriceTable, getUserAd} = require('./routes/popq')
+const {getPriceRange ,getPriceTable, getUserAd, getBestPost} = require('./routes/popq')
 const {getProductComments} = require('./routes/seepost')
 
 const port = 5000;
@@ -23,8 +23,8 @@ const port = 5000;
 // mysql.createConnection takes in a configuration object which contains host, user, password and the database name.
 const db = mysql.createConnection ({
     host: 'localhost',
-    user: 'ginahong',
-    password: 'ghdatabase',
+    user: 'root',
+    password: 'password1',
     database: 'marketdb',
     multipleStatements : true
 });
@@ -77,6 +77,7 @@ app.post('/sold:postid', soldUpdate); //Update the post to sold, once transactio
 app.get('/pop_q/chooseprice', getPriceRange); // Products in price range feature
 app.post('/pop_q/chooseprice', getPriceTable); // Products in price range feature
 app.get('/pop_q/user_interest', getUserAd); // Users and advertisements they could see
+app.get('/pop_q/best_post', getBestPost);
 
 // app.get('/users/buyers/', getBuyers);
 // app.get('/users/sellers', getSellers);
