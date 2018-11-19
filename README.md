@@ -12,8 +12,8 @@
 | ------------- | ------------- |
 | [0 - Getting Started](https://github.com/cpsc304-group46/cpsc304db/blob/master/README.md#0-Getting-Started)  | Quick guide on git and getting node.js set up for this app!  |
 | [Phase 1 - Project Proposal](https://github.com/cpsc304-group46/cpsc304db/blob/master/README.md#1-project-proposal)  | Write up on our answers for phase1 of the project.  |
-| [Phase 2 - Logical Design](https://github.com/cpsc304-group46/cpsc304db/blob/master/README.md#2-logical-design) | Write up on what we did for phase 2 of the project. |
-| [Final Deliverables](https://github.com/cpsc304-group46/cpsc304db/blob/master/README.md#Final-Deliverables) | Short write up on which files are where, etc... |
+| [Phase 2 - Logical Design](https://github.com/group46/dbmart/README.md#2-logical-design) | Write up on what we did for phase 2 of the project. |
+| [Final Deliverables](https://github.com/group46/dbmart/README.md#3-Final-Deliverables) | Short write up on which files are where, etc... |
 
 
 ## 0. Getting Started
@@ -131,7 +131,7 @@ Info about translating into relational model, the FDs, and the normalization are
 ### SQL DDL Create Tables
 See the /db folder's marketdb.sql
 
-## Final Deliverables
+## 3. Final Deliverables
 ![screen shot 2018-11-18 at 6 15 32 pm](https://user-images.githubusercontent.com/32022159/48683024-f9ca3800-eb5f-11e8-8357-63900f7fa50c.png)
 ### Screenshots
 Sample shots of what our app looks like is located in the /screenshots folder.
