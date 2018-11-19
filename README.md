@@ -10,10 +10,10 @@
 
 | Section Name  | Section Description |
 | ------------- | ------------- |
-| [0 - Getting Started](https://github.com/cpsc304-group46/cpsc304db/blob/master/README.md#0-Getting-Started)  | Quick guide on git and getting node.js set up for this app!  |
-| [Phase 1 - Project Proposal](https://github.com/cpsc304-group46/cpsc304db/blob/master/README.md#1-project-proposal)  | Write up on our answers for phase1 of the project.  |
-| [Phase 2 - Logical Design](https://github.com/group46/dbmart/README.md#2-logical-design) | Write up on what we did for phase 2 of the project. |
-| [Final Deliverables](https://github.com/group46/dbmart/README.md#3-Final-Deliverables) | Short write up on which files are where, etc... |
+| [0 - Getting Started](https://github.com/group46/dbmart/blob/master/README.md#0-Getting-Started)  | Quick guide on git and getting node.js set up for this app!  |
+| [Phase 1 - Project Proposal](https://github.com/group46/dbmart/blob/master/README.md#1-project-proposal)  | Write up on our answers for phase1 of the project.  |
+| [Phase 2 - Logical Design](https://github.com/group46/dbmart/blob/master/README.md#2-logical-design) | Write up on what we did for phase 2 of the project. |
+| [Final Deliverables](https://github.com/group46/dbMart/blob/master/README.md#3-final-deliverables) | Short write up on which files are where, etc... |
 
 
 ## 0. Getting Started
