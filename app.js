@@ -17,14 +17,16 @@ const {getPostPage, soldUpdate} = require('./routes/products')
 const {getPriceRange ,getPriceTable, getUserAd, getBestPost} = require('./routes/popq')
 const {getProductComments} = require('./routes/seepost')
 
+const {retrieveCommentPage, submitComment} = require('./routes/comment')
+
 const port = 5000;
 
 // create connection to database
 // mysql.createConnection takes in a configuration object which contains host, user, password and the database name.
 const db = mysql.createConnection ({
     host: 'localhost',
-    user: 'ginahong',
-    password: 'ghdatabase',
+    user: 'root',
+    password: 'HelloWorld1001',
     database: 'marketdb',
     multipleStatements : true
 });
@@ -65,6 +67,9 @@ app.post('/getacccreate', insertUser); // INSERT user
 
 // PRODUCT_POSTS
 app.get('/see_post/:postid', getProductComments); // Go to ONE POST page (see more)
+app.get('/comment/:postid', retrieveCommentPage);
+app.post('/comment/:postid', submitComment);
+
 app.get('/add_post', getAddPostPage); // Go to CREATE POST page
 app.post('/add_post', addPostPage); // INSERT product_post
 app.get('/deletepopup/:postid', deletePostPopUp); // DELETE a certain post
