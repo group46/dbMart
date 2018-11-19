@@ -2,7 +2,7 @@
 
 
 ### Preview of project (Nov 13th)
-![mainpage2](https://user-images.githubusercontent.com/32022159/48400076-35857d80-e6da-11e8-944d-ae654dbc338d.jpg)
+![screen shot 2018-11-18 at 6 15 32 pm](https://user-images.githubusercontent.com/32022159/48683024-f9ca3800-eb5f-11e8-8357-63900f7fa50c.png)
 
 
 ## Table of Content
