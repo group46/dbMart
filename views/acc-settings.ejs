@@ -1,6 +1,6 @@
 <% include partials/header.ejs %>
 <div class="container">
-    <% if (message) { %>
+    <% if (typeof message != 'undefined') { %>
         <p class="text-center text-danger"><%= message %></p>
     <% } %>
 
@@ -56,7 +56,7 @@
           </div>
         </form>
     <% } else { %>
-        <p class="text-center">User Not Found. Go <a href="/add-acc">here</a> to add account.</p>
+        <p class="text-center">User Not Found. Go <a href="/getacccreate">here</a> to add account.</p>
     <% } %>
 </div>
 </div>
